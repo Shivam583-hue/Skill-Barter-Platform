@@ -27,6 +27,8 @@ export const signup = (async(req:Request,res:Response) => {
             password : hashedPassword,
             email : email,
             profilePic: profilePic,
+            bio: "",
+            portfolio: "",
             }
         })
 
