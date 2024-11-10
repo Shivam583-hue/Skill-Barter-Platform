@@ -13,7 +13,7 @@ import generateTokenAndSetCookie from "../utils/generateToken.js";
 const prisma = new PrismaClient();
 export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { fullName, username, password, confirmPassword, email, profilePic } = req.body;
+        const { fullName, username, password, confirmPassword, email } = req.body;
         if (password != confirmPassword) {
             return res.status(400).json({ error: "Passwords don't match" });
         }
@@ -25,6 +25,7 @@ export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function*
         //hash password  
         const salt = yield bcrypt.genSalt(10);
         const hashedPassword = yield bcrypt.hash(password, salt);
+        const profilePic = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
         const newUser = yield prisma.user.create({
             data: {
                 fullName,
@@ -40,7 +41,6 @@ export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function*
             fullName: newUser.fullName,
             username: newUser.username,
             email: newUser.email,
-            profilePic: newUser.profilePic
         });
     }
     catch (error) {
@@ -65,7 +65,6 @@ export const login = ((req, res) => __awaiter(void 0, void 0, void 0, function* 
             id: user === null || user === void 0 ? void 0 : user.id,
             fullName: user === null || user === void 0 ? void 0 : user.fullName,
             email: user === null || user === void 0 ? void 0 : user.email,
-            profilePic: user === null || user === void 0 ? void 0 : user.profilePic
         });
     }
     catch (error) {

@@ -24,3 +24,5 @@ model User {
   portfolio  String
   createdAt  DateTime @default(now())
 }
+
+model  

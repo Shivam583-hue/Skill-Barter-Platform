@@ -1,6 +1,7 @@
 import Login from "./Pages/Login/Login.tsx"
 import SignUp from "./Pages/Sign Up/SignUp.tsx"
 import Home from "./Pages/Home/Home.tsx"
+import AllChatRooms from "./Pages/Home/AllChatRooms.tsx"
 import DesignerPage from "./Pages/Home/DesignerPage.tsx"
 import DeveloperPage from "./Pages/Home/DeveloperPage.tsx"
 import FlexPage from "./Pages/Home/FlexPage.tsx"
@@ -43,6 +44,7 @@ function App(){
       <Routes>
         <Route path="/" element={<SideBar/>}>
           <Route path="/" element={<Home/>}/>
+          <Route path="/home/allchatrooms" element={<AllChatRooms/>}/>
           <Route path="/developer" element={<DeveloperPage/>}/>
           <Route path="/designer" element={<DesignerPage/>}/>
           <Route path="/flex" element={<FlexPage/>}/>
