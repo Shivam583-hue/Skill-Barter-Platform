@@ -119,6 +119,7 @@ model JobOpportunity {
   salary            String
   applyLink         String
   userId            Int    
+  createdAt         DateTime @default(now())
   user              User   @relation("UserJobOpportunities", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])

@@ -18,7 +18,7 @@ interface DeveloperOpportunity {
   userId: number;
 }
 
-export const designerOpportunity = async (req: Request, res: Response) => {
+export const designerOpportunity = (async (req: Request, res: Response) => {
   const { title, description, content, userId } =
     req.body as DesignerOpportunity;
 
@@ -50,9 +50,9 @@ export const designerOpportunity = async (req: Request, res: Response) => {
     console.error("Error creating designer opportunity", error);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
-};
+}) as express.RequestHandler;
 
-export const developerOpportunity = async (req: Request, res: Response) => {
+export const developerOpportunity = (async (req: Request, res: Response) => {
   const { title, description, content, userId } =
     req.body as DeveloperOpportunity;
 
@@ -85,9 +85,9 @@ export const developerOpportunity = async (req: Request, res: Response) => {
     console.error("Error creating developer opportunity", error);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
-};
+}) as express.RequestHandler;
 
-export const dsaStuff = async (req: Request, res: Response) => {
+export const dsaStuff = (async (req: Request, res: Response) => {
   const { content, title, description, userId } =
     req.body as DeveloperOpportunity;
 
@@ -116,9 +116,9 @@ export const dsaStuff = async (req: Request, res: Response) => {
     console.error("Error creating DSAPost:", error);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
-};
+}) as express.RequestHandler;
 
-export const flex = async (req: Request, res: Response) => {
+export const flex = (async (req: Request, res: Response) => {
   const { content, title, description, userId } =
     req.body as DeveloperOpportunity;
 
@@ -147,9 +147,9 @@ export const flex = async (req: Request, res: Response) => {
     console.error("Error creating Flex Post:", error);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
-};
+}) as express.RequestHandler;
 
-export const jobOpportunity = async (req: Request, res: Response) => {
+export const jobOpportunity = (async (req: Request, res: Response) => {
   const { description, company, location, salary, applyLink, userId } =
     req.body;
 
@@ -179,4 +179,4 @@ export const jobOpportunity = async (req: Request, res: Response) => {
     console.error("Error creating Job opportunity:", error);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
-};
+}) as express.RequestHandler;

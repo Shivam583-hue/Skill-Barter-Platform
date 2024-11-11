@@ -33,6 +33,8 @@ export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function*
                 password: hashedPassword,
                 email: email,
                 profilePic: profilePic,
+                bio: "",
+                portfolio: "",
             }
         });
         generateTokenAndSetCookie(newUser.id, res);
