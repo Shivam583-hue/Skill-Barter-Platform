@@ -17,9 +17,7 @@ export const postDesignerComment = ((req, res) => __awaiter(void 0, void 0, void
             .json({ success: false, message: "All fields are required." });
     if (typeof content !== "string" || content.length > 500) {
         // Example length check
-        return res
-            .status(400)
-            .json({
+        return res.status(400).json({
             success: false,
             message: "Content must be a string and less than 500 characters.",
         });
@@ -27,9 +25,7 @@ export const postDesignerComment = ((req, res) => __awaiter(void 0, void 0, void
     const userIdnum = Number(userId);
     const dO_idnum = Number(designerOpportunity_id);
     if (isNaN(userIdnum) || isNaN(dO_idnum))
-        return res
-            .status(400)
-            .json({
+        return res.status(400).json({
             success: false,
             message: "Invalid designer post ID or user ID.",
         });
@@ -41,9 +37,7 @@ export const postDesignerComment = ((req, res) => __awaiter(void 0, void 0, void
                 designerOpportunity_id: dO_idnum,
             },
         });
-        res
-            .status(201)
-            .json({
+        res.status(201).json({
             success: true,
             message: "Comment added successfully",
             data: newComment,
@@ -62,9 +56,7 @@ export const postDeveloperComment = ((req, res) => __awaiter(void 0, void 0, voi
             .json({ success: false, message: "All fields are required." });
     if (typeof content !== "string" || content.length > 500) {
         // Example length check
-        return res
-            .status(400)
-            .json({
+        return res.status(400).json({
             success: false,
             message: "Content must be a string and less than 500 characters.",
         });
@@ -72,9 +64,7 @@ export const postDeveloperComment = ((req, res) => __awaiter(void 0, void 0, voi
     const userIdnum = Number(userId);
     const dOO_id = Number(developerOpportunity_id);
     if (isNaN(userId) || isNaN(dOO_id))
-        return res
-            .status(400)
-            .json({
+        return res.status(400).json({
             success: false,
             message: "Invalid developer post ID or user ID.",
         });
@@ -86,9 +76,7 @@ export const postDeveloperComment = ((req, res) => __awaiter(void 0, void 0, voi
                 developerOpportunity_id: dOO_id,
             },
         });
-        res
-            .status(201)
-            .json({
+        res.status(201).json({
             success: true,
             message: "Comment added successfully",
             data: anothernewComment,
@@ -99,5 +87,41 @@ export const postDeveloperComment = ((req, res) => __awaiter(void 0, void 0, voi
         res.status(500).json({ success: false, error: "Internal server error" });
     }
 }));
-export const getDesignerComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
-export const getDeveloperComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+export const getDesignerComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const recentDesignerComments = yield prisma.designerOpportunityComment.findMany({
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        profilePic: true,
+                    },
+                },
+            },
+        });
+        res.json({ success: true, data: recentDesignerComments });
+    }
+    catch (error) {
+        console.error("Error fetching comments:", error);
+        res.status(500).json({ success: false, error: "Internal server error" });
+    }
+}));
+export const getDeveloperComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const recentDeveloperComments = yield prisma.developerOpportunityComment.findMany({
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        profilePic: true,
+                    },
+                },
+            },
+        });
+        res.json({ success: true, data: recentDeveloperComments });
+    }
+    catch (error) {
+        console.error("Error fetching comments:", error);
+        res.status(500).json({ success: false, error: "Internal server error" });
+    }
+}));
