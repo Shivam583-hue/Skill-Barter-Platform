@@ -1,6 +1,8 @@
-import React from "react";
+import { motion } from "framer-motion";
 
 const DevOpptur = () => {
+  const handleCreate = () => {};
+
   return (
     <div>
       {/* Image Container */}
@@ -32,6 +34,14 @@ const DevOpptur = () => {
           placeholder="Details go here."
         />
       </div>
+      <motion.button
+        onClick={handleCreate}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
+        className="bg-[#3a3b3a] hover:bg-[#555655] rounded-2xl px-3 font-mono text-gray-300 font-bold text-lg py-1 mx-4 my-2"
+      >
+        Create
+      </motion.button>
     </div>
   );
 };

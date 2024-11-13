@@ -31,7 +31,7 @@ const PostOptions = () => {
     } else if (designer) {
       navigate("/postoptions/DesginOpptur");
     } else if (flex) {
-      navigate("/postoptions/DsaPost");
+      navigate("/postoptions/FlexPost");
     } else if (job) {
       navigate("/postoptions/JobPost");
     } else if (dsa) {

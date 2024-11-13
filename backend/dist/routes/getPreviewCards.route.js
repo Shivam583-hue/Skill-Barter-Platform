@@ -1,5 +1,5 @@
 import express from "express";
-import { getDesigner, getDeveloper, getDsa, getFlex, getJobs, } from "../controllers/getPreviewCards.controller";
+import { getDesigner, getDeveloper, getDsa, getFlex, getJobs, } from "../controllers/getPreviewCards.controller.js";
 const router = express.Router();
 router.get("/designerOpportunity", getDesigner);
 router.get("/developerOpportunity", getDeveloper);

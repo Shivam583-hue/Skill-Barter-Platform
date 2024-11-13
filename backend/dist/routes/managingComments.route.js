@@ -1,5 +1,5 @@
 import express from "express";
-import { getDesignerComment, getDeveloperComment, postDesignerComment, postDeveloperComment, } from "../controllers/managingComments.controller";
+import { getDesignerComment, getDeveloperComment, postDesignerComment, postDeveloperComment, } from "../controllers/managingComments.controller.js";
 const router = express.Router();
 //----------------post--------------------
 router.post("/post/designerComment", postDesignerComment);

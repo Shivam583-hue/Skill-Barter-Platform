@@ -4,7 +4,7 @@ import {
   getDeveloperComment,
   postDesignerComment,
   postDeveloperComment,
-} from "../controllers/managingComments.controller";
+} from "../controllers/managingComments.controller.js";
 
 const router = express.Router();
 

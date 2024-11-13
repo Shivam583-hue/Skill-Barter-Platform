@@ -34,45 +34,116 @@ import { useAuthContext } from "./context/AuthContext";
 //     <div className="p-4 h-screen flex items-center bg-[#121212] justify-center">
 //       <Routes>
 //         <Route path='/' element={authUser ? <Home/>:<Navigate to="/login"/>} />
-//         <Route path='/login' element={authUser ? <Navigate to="/"/>:<Login/>} />
-//         <Route path='/signup' element={authUser ? <Navigate to="/"/>:<SignUp/>} />
 //       </Routes>
-//       <Toaster/>
 //     </div>
 //   )
 // }
 
 function App() {
+  const { authUser } = useAuthContext();
+
   return (
-    <div className="bg-[#121212]  min-h-screen">
+    <div className="bg-[#121212] min-h-screen">
       <Routes>
-        <Route path="/" element={<SideBar />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/home/allchatrooms" element={<AllChatRooms />} />
-          <Route path="/developer" element={<DeveloperPage />} />
-          <Route path="/designer" element={<DesignerPage />} />
-          <Route path="/flex" element={<FlexPage />} />
-          <Route path="/dsa" element={<DSApage />} />
-          <Route path="/job" element={<JobPage />} />
-          <Route path="/profile" element={<ProfilePage />}>
+        <Route
+          path="/login"
+          element={authUser ? <Navigate to="/" /> : <Login />}
+        />
+        <Route
+          path="/signup"
+          element={authUser ? <Navigate to="/" /> : <SignUp />}
+        />
+
+        <Route
+          path="/"
+          element={authUser ? <SideBar /> : <Navigate to="/login" />}
+        >
+          <Route
+            path="/"
+            element={authUser ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/home/allchatrooms"
+            element={authUser ? <AllChatRooms /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/developer"
+            element={authUser ? <DeveloperPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/designer"
+            element={authUser ? <DesignerPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/flex"
+            element={authUser ? <FlexPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/dsa"
+            element={authUser ? <DSApage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/job"
+            element={authUser ? <JobPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile"
+            element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+          >
             <Route
               path="/profile/postedopportunities"
-              element={<PostedOpportunities />}
+              element={
+                authUser ? <PostedOpportunities /> : <Navigate to="/login" />
+              }
             />
-            <Route path="/profile/postedflexes" element={<Flexes />} />
-            <Route path="/profile/postedjobs" element={<PostedJobs />} />
-            <Route path="/profile/yourchatrooms" element={<YourChatrooms />} />
+            <Route
+              path="/profile/postedflexes"
+              element={authUser ? <Flexes /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/profile/postedjobs"
+              element={authUser ? <PostedJobs /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/profile/yourchatrooms"
+              element={authUser ? <YourChatrooms /> : <Navigate to="/login" />}
+            />
           </Route>
-          <Route path="/postoptions" element={<PostOptions />} />
-          <Route path="/postoptions/DevOpptur" element={<DevOpptur />} />
-          <Route path="/postoptions/DesginOpptur" element={<DesignOpptur />} />
-          <Route path="/postoptions/DsaPost" element={<DsaPost />} />
-          <Route path="/postoptions/FlexPost" element={<FlexPost />} />
-          <Route path="/inbox" element={<InboxPage />} />
-          <Route path="/profile/:username" element={<OthersProfile />} />
-          <Route path="/postoptions/JobPost" element={<JobPost />} />
+          <Route
+            path="/postoptions"
+            element={authUser ? <PostOptions /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/postoptions/DevOpptur"
+            element={authUser ? <DevOpptur /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/postoptions/DesginOpptur"
+            element={authUser ? <DesignOpptur /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/postoptions/DsaPost"
+            element={authUser ? <DsaPost /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/postoptions/FlexPost"
+            element={authUser ? <FlexPost /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/inbox"
+            element={authUser ? <InboxPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/:username"
+            element={authUser ? <OthersProfile /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/postoptions/JobPost"
+            element={authUser ? <JobPost /> : <Navigate to="/login" />}
+          />
         </Route>
       </Routes>
+      <Toaster />
     </div>
   );
 }

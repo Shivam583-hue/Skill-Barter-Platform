@@ -5,7 +5,7 @@ import {
   getDsa,
   getFlex,
   getJobs,
-} from "../controllers/getPreviewCards.controller";
+} from "../controllers/getPreviewCards.controller.js";
 
 const router = express.Router();
 
