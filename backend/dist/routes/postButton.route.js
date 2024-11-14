@@ -1,4 +1,4 @@
-import express from "express";
+import * as express from "express";
 import { designerOpportunity, developerOpportunity, dsaStuff, flex, jobOpportunity, } from "../controllers/postButton.controller.js";
 const router = express.Router();
 router.post("/postoptions/designerOpportunity", designerOpportunity);

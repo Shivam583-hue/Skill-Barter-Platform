@@ -1,7 +1,48 @@
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useState } from "react";
+import { baseUrl } from "../../../Hooks/useSignup";
+
+interface User {
+  id: number;
+  fullName: string;
+  username: string;
+  email: string;
+}
 
 const DevOpptur = () => {
-  const handleCreate = () => {};
+  const { authUser } = useAuthContext() as { authUser: User | null };
+  const userid = authUser?.id;
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const navigate = useNavigate();
+  const [content, setContent] = useState("");
+
+  const handleCreate = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/api/postoptions/developerOpportunity`,
+        {
+          userId: userid,
+          title,
+          description,
+          content,
+        },
+      );
+      if (response.data.success) {
+        toast.success("Developer Opportunity created successfully!");
+        navigate("/developer");
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error creating opportunity:", error);
+      toast.error("Failed to create opportunity.");
+    }
+  };
 
   return (
     <div>
@@ -16,6 +57,8 @@ const DevOpptur = () => {
       {/* Title Container */}
       <div className="p-4">
         <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           className="text-3xl font-bold w-full md:w-[900px] focus:outline-none text-mono"
           placeholder="Title goes here."
         />
@@ -23,6 +66,8 @@ const DevOpptur = () => {
       {/* Description Container */}
       <div className="p-4">
         <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Description goes here."
         />
@@ -30,6 +75,8 @@ const DevOpptur = () => {
       {/* Details Container */}
       <div className="p-4">
         <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
           className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Details go here."
         />

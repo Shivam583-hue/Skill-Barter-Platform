@@ -7,7 +7,7 @@ import {
   UserIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import useSignUp from "../../Hooks/useSignup.tsx";
 
 const SignUp = () => {
@@ -19,7 +19,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const { loading, signup } = useSignUp();
-  function handleSubmit(e: any) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     signup(inputs);
   }

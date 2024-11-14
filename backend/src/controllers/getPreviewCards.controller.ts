@@ -13,7 +13,7 @@ export const getDesigner = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
-            username: true,
+            fullName: true,
             profilePic: true,
           },
         },
@@ -46,7 +46,7 @@ export const getDeveloper = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
-            username: true,
+            fullName: true,
             profilePic: true,
           },
         },
@@ -77,7 +77,7 @@ export const getDsa = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
-            username: true,
+            fullName: true,
             profilePic: true,
           },
         },
@@ -100,7 +100,7 @@ export const getFlex = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
-            username: true,
+            fullName: true,
             profilePic: true,
           },
         },

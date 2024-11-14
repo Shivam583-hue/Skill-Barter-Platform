@@ -19,7 +19,7 @@ export const getDesigner = (req, res) => __awaiter(void 0, void 0, void 0, funct
             include: {
                 user: {
                     select: {
-                        username: true,
+                        fullName: true,
                         profilePic: true,
                     },
                 },
@@ -51,7 +51,7 @@ export const getDeveloper = (req, res) => __awaiter(void 0, void 0, void 0, func
             include: {
                 user: {
                     select: {
-                        username: true,
+                        fullName: true,
                         profilePic: true,
                     },
                 },
@@ -81,7 +81,7 @@ export const getDsa = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             include: {
                 user: {
                     select: {
-                        username: true,
+                        fullName: true,
                         profilePic: true,
                     },
                 },
@@ -104,7 +104,7 @@ export const getFlex = (req, res) => __awaiter(void 0, void 0, void 0, function*
             include: {
                 user: {
                     select: {
-                        username: true,
+                        fullName: true,
                         profilePic: true,
                     },
                 },

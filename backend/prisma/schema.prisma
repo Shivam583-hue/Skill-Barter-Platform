@@ -114,6 +114,7 @@ model Flex {
 model JobOpportunity {
   jobOpportunity_id Int    @id @default(autoincrement())
   description       String
+  title             String
   company           String
   location          String
   salary            String

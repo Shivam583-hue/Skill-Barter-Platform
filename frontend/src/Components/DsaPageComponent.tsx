@@ -1,12 +1,40 @@
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
+export interface User {
+  id: number;
+  fullName: string;
+  profilePic: string;
+}
 
-const DsaPageComponent = ({title,description,postedOn,Createdby,creatorimage}:{title:string,description:string,postedOn:string,Createdby:string,creatorimage:string}) => {
+export interface Opp {
+  dsaStuff_id: number;
+  title: string;
+  createdAt: string;
+  description: string;
+  content: string;
+  user: User;
+}
+
+interface Props {
+  opportunity: Opp;
+}
+
+const DsaPageComponent = ({ opportunity }: Props) => {
+  const title = opportunity.title;
+  const creatorimage = opportunity.user.profilePic;
+  const Createdby = opportunity.user.fullName;
+  const description = opportunity.description;
+  const postedOn = opportunity.createdAt.substring(0, 10);
+
   return (
     <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300  w-full sm:w-[500px] md:w-[800px]  mx-auto my-4">
       <div className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <img src={creatorimage} alt={Createdby} className="w-10 h-10 rounded-full" />
+            <img
+              src={creatorimage}
+              alt={Createdby}
+              className="w-10 h-10 rounded-full"
+            />
             <div>
               <h3 className="text-gray-300 font-semibold">{Createdby}</h3>
               <p className="text-gray-400 text-sm">Posted on: {postedOn}</p>
@@ -20,8 +48,8 @@ const DsaPageComponent = ({title,description,postedOn,Createdby,creatorimage}:{t
         </div>
 
         <div className="flex justify-end">
-          <motion.button 
-            whileHover={{ scale: 1.05 }} 
+          <motion.button
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-[#b2bbff] hover:bg-[#8d94cb] text-white font-bold py-2 px-6 rounded-full transition-colors duration-300"
           >
@@ -30,7 +58,7 @@ const DsaPageComponent = ({title,description,postedOn,Createdby,creatorimage}:{t
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DsaPageComponent
+export default DsaPageComponent;

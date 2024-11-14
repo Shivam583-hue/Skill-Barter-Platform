@@ -3,6 +3,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext.tsx";
 
+export const baseUrl = "http://localhost:5000";
+
 interface SignUpParams {
   fullName: string;
   username: string;
@@ -13,23 +15,42 @@ interface SignUpParams {
 
 const useSignUp = () => {
   const [loading, setLoading] = useState(false);
-  const {setAuthUser} = useAuthContext()
+  const { setAuthUser } = useAuthContext();
 
-  const signup = async ({ fullName, username, password, confirmPassword,email }: SignUpParams) => {
-    const success = handleInputErrors({ fullName, username, confirmPassword, password,email });
+  const signup = async ({
+    fullName,
+    username,
+    password,
+    confirmPassword,
+    email,
+  }: SignUpParams) => {
+    const success = handleInputErrors({
+      fullName,
+      username,
+      confirmPassword,
+      password,
+      email,
+    });
     if (!success) return;
 
     setLoading(true);
     try {
-      const response = await axios.post("/api/auth/signup", { fullName, username, password,confirmPassword,email });
+      const response = await axios.post(`${baseUrl}/api/auth/signup`, {
+        fullName,
+        username,
+        password,
+        confirmPassword,
+        email,
+      });
       console.log(response.data);
 
-      if(response.data.error) {throw new Error(response.data.error)}
-      
-      localStorage.setItem("chat-user",response.data)
+      if (response.data.error) {
+        throw new Error(response.data.error);
+      }
 
-      setAuthUser(response.data)
-      
+      localStorage.setItem("chat-user", response.data);
+
+      setAuthUser(response.data);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         toast.error(error.response?.data?.message || "Signup failed");
@@ -46,7 +67,13 @@ const useSignUp = () => {
 
 export default useSignUp;
 
-function handleInputErrors({ fullName, username, confirmPassword, password,email }: SignUpParams) {
+function handleInputErrors({
+  fullName,
+  username,
+  confirmPassword,
+  password,
+  email,
+}: SignUpParams) {
   if (!fullName || !username || !confirmPassword || !password || !email) {
     toast.error("Please fill in all the fields");
     return false;

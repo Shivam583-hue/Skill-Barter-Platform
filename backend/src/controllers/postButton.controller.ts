@@ -1,4 +1,5 @@
-import express, { Request, Response } from "express";
+import * as express from "express";
+import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -149,10 +150,18 @@ export const flex = (async (req: Request, res: Response) => {
 }) as express.RequestHandler;
 
 export const jobOpportunity = (async (req: Request, res: Response) => {
-  const { description, company, location, salary, applyLink, userId } =
+  const { title, description, company, location, salary, applyLink, userId } =
     req.body;
 
-  if (!description || !company || !location || !salary || !applyLink || !userId)
+  if (
+    !title ||
+    !description ||
+    !company ||
+    !location ||
+    !salary ||
+    !applyLink ||
+    !userId
+  )
     return res
       .status(400)
       .json({ success: false, message: "All fields are required" });
@@ -166,6 +175,7 @@ export const jobOpportunity = (async (req: Request, res: Response) => {
   try {
     const newJob = await prisma.jobOpportunity.create({
       data: {
+        title,
         description,
         company,
         location,
@@ -174,6 +184,13 @@ export const jobOpportunity = (async (req: Request, res: Response) => {
         userId,
       },
     });
+    return res
+      .status(201)
+      .json({
+        success: true,
+        message: "Job opportunity created",
+        data: newJob,
+      });
   } catch (error) {
     console.error("Error creating Job opportunity:", error);
     res.status(500).json({ success: false, error: "Internal server error" });

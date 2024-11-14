@@ -127,8 +127,14 @@ export const flex = ((req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 }));
 export const jobOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { description, company, location, salary, applyLink, userId } = req.body;
-    if (!description || !company || !location || !salary || !applyLink || !userId)
+    const { title, description, company, location, salary, applyLink, userId } = req.body;
+    if (!title ||
+        !description ||
+        !company ||
+        !location ||
+        !salary ||
+        !applyLink ||
+        !userId)
         return res
             .status(400)
             .json({ success: false, message: "All fields are required" });
@@ -141,6 +147,7 @@ export const jobOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, f
     try {
         const newJob = yield prisma.jobOpportunity.create({
             data: {
+                title,
                 description,
                 company,
                 location,
@@ -148,6 +155,13 @@ export const jobOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, f
                 applyLink,
                 userId,
             },
+        });
+        return res
+            .status(201)
+            .json({
+            success: true,
+            message: "Job opportunity created",
+            data: newJob,
         });
     }
     catch (error) {
