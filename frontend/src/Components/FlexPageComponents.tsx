@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
   id: number;
@@ -25,6 +26,12 @@ const FlexPageComponents = ({ opportunity }: Props) => {
   const Createdby = opportunity.user.fullName;
   const description = opportunity.description;
   const postedOn = opportunity.createdAt.substring(0, 10);
+  const flex_id = opportunity.flex_id;
+  const navigate = useNavigate();
+
+  function handleDetails() {
+    navigate(`/flex/${flex_id}`);
+  }
 
   return (
     <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300  w-full sm:w-[500px] md:w-[800px]  mx-auto my-4">
@@ -50,6 +57,7 @@ const FlexPageComponents = ({ opportunity }: Props) => {
 
         <div className="flex justify-end">
           <motion.button
+            onClick={handleDetails}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-[#2c3333] hover:bg-[#181c1c] text-white font-bold py-2 px-6 rounded-full transition-colors duration-300"

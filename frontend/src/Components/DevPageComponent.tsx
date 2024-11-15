@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
   id: number;
@@ -22,11 +23,17 @@ interface Props {
 
 const DevPageComponent = ({ opportunity }: Props) => {
   const title = opportunity.title;
+  const navigate = useNavigate();
   const creatorimage = opportunity.user.profilePic;
   const Createdby = opportunity.user.fullName;
   const description = opportunity.description;
   const postedOn = opportunity.createdAt.substring(0, 10);
   const commentCount = opportunity.commentCount;
+  const developerOpportunity_id = opportunity.developerOpportunity_id;
+
+  function handleReadmore() {
+    navigate(`/developer/${developerOpportunity_id}`);
+  }
 
   return (
     <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-[500px] md:w-[800px] mx-auto my-4">
@@ -72,6 +79,7 @@ const DevPageComponent = ({ opportunity }: Props) => {
 
         <div className="flex justify-end ">
           <motion.button
+            onClick={handleReadmore}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="bg-[#2ba098] hover:bg-[#1f726c] text-white font-bold py-2 px-6 rounded-full transition-colors duration-300"

@@ -25,6 +25,10 @@ import JobPost from "./Pages/Home/Specific Post Pages/JobPost.tsx";
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "./context/AuthContext";
+import DeveloperView from "./Pages/Home/Specific View Pages/DeveloperView.tsx";
+import DesignView from "./Pages/Home/Specific View Pages/DesignView.tsx";
+import FlexView from "./Pages/Home/Specific View Pages/FlexView.tsx";
+import DSAview from "./Pages/Home/Specific View Pages/DSAview.tsx";
 
 // function App() {
 
@@ -71,16 +75,32 @@ function App() {
             element={authUser ? <DeveloperPage /> : <Navigate to="/login" />}
           />
           <Route
+            path="/developer/:developerOpportunity_id"
+            element={authUser ? <DeveloperView /> : <Navigate to="/login" />}
+          />
+          <Route
             path="/designer"
             element={authUser ? <DesignerPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/designer/:designerOpportunity_id"
+            element={authUser ? <DesignView /> : <Navigate to="/login" />}
           />
           <Route
             path="/flex"
             element={authUser ? <FlexPage /> : <Navigate to="/login" />}
           />
           <Route
+            path="/flex/:flex_id"
+            element={authUser ? <FlexView /> : <Navigate to="/login" />}
+          />
+          <Route
             path="/dsa"
             element={authUser ? <DSApage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/dsa/:dsaStuff_id"
+            element={authUser ? <DSAview /> : <Navigate to="/login" />}
           />
           <Route
             path="/job"

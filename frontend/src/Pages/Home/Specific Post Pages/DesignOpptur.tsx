@@ -4,6 +4,7 @@ import axios from "axios";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useState } from "react";
 import { baseUrl } from "../../../Hooks/useSignup";
+
 interface User {
   id: number;
   fullName: string;

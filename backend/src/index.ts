@@ -3,6 +3,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import postButtonRoutes from "./routes/postButton.route.js";
+import specificView from "./routes/specificView.route.js";
 import getPreviewCardsRoutes from "./routes/getPreviewCards.route.js";
 import { Request, Response } from "express";
 
@@ -31,6 +32,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api", postButtonRoutes);
 app.use("/api/preview", getPreviewCardsRoutes);
+app.use("/api/specificView", specificView);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Server is running");
