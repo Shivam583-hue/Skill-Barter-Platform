@@ -36,6 +36,10 @@ export const postDesignerComment = (async (req: Request, res: Response) => {
         designerOpportunity_id: dO_idnum,
       },
     });
+    await prisma.designerOpportunity.update({
+      where: { designerOpportunity_id: dO_idnum },
+      data: { commentCount: { increment: 1 } },
+    });
     res.status(201).json({
       success: true,
       message: "Comment added successfully",
@@ -80,6 +84,11 @@ export const postDeveloperComment = (async (req: Request, res: Response) => {
         developerOpportunity_id: dOO_id,
       },
     });
+    await prisma.developerOpportunity.update({
+      where: { developerOpportunity_id: dOO_id },
+      data: { commentCount: { increment: 1 } },
+    });
+
     res.status(201).json({
       success: true,
       message: "Comment added successfully",
@@ -92,13 +101,16 @@ export const postDeveloperComment = (async (req: Request, res: Response) => {
 }) as express.RequestHandler;
 
 export const getDesignerComment = (async (req: Request, res: Response) => {
+  const designerOpportunity_id = Number(req.params.designerOpportunity_id);
   try {
     const recentDesignerComments =
       await prisma.designerOpportunityComment.findMany({
+        where: { designerOpportunity_id },
         include: {
           user: {
             select: {
-              username: true,
+              fullName: true,
+              id: true,
               profilePic: true,
             },
           },
@@ -112,13 +124,16 @@ export const getDesignerComment = (async (req: Request, res: Response) => {
 }) as express.RequestHandler;
 
 export const getDeveloperComment = (async (req: Request, res: Response) => {
+  const developerOpportunity_id = Number(req.params.developerOpportunity_id);
   try {
     const recentDeveloperComments =
       await prisma.developerOpportunityComment.findMany({
+        where: { developerOpportunity_id },
         include: {
           user: {
             select: {
-              username: true,
+              fullName: true,
+              id: true,
               profilePic: true,
             },
           },

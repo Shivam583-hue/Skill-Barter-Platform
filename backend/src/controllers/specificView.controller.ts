@@ -13,6 +13,7 @@ export const specificDesigns = (async (req: Request, res: Response) => {
           select: {
             fullName: true,
             profilePic: true,
+            id: true,
           },
         },
         comments: {
@@ -49,6 +50,7 @@ export const specificDevelopments = (async (req: Request, res: Response) => {
           select: {
             fullName: true,
             profilePic: true,
+            id: true,
           },
         },
         comments: {

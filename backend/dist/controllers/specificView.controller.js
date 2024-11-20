@@ -19,6 +19,7 @@ export const specificDesigns = ((req, res) => __awaiter(void 0, void 0, void 0, 
                     select: {
                         fullName: true,
                         profilePic: true,
+                        id: true,
                     },
                 },
                 comments: {
@@ -55,6 +56,7 @@ export const specificDevelopments = ((req, res) => __awaiter(void 0, void 0, voi
                     select: {
                         fullName: true,
                         profilePic: true,
+                        id: true,
                     },
                 },
                 comments: {

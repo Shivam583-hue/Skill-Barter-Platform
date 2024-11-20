@@ -1,4 +1,6 @@
 import { MessageSquare } from "lucide-react";
+import { useAuthContext } from "../../../context/AuthContext";
+import DevCommentView from "../../../Components/DevCommentView";
 import { format } from "date-fns";
 import { baseUrl } from "../../../Hooks/useSignup";
 import toast from "react-hot-toast";
@@ -22,9 +24,42 @@ export interface Opp {
   user: User;
 }
 
+interface Comment {
+  comment_id: number;
+  isCreator: boolean;
+  developerOpportunity_id: number;
+  content: string;
+  user: User;
+}
+
 const DeveloperView = () => {
+  const { authUser } = useAuthContext() as { authUser: User | null };
+  const authUserId = authUser?.id;
+
+  const [comms, setComms] = useState<Comment[]>();
+
+  const [comment, setComment] = useState("");
   const { developerOpportunity_id } = useParams();
   const [post, setPost] = useState<Opp | null>(null);
+
+  const handleComment = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/api/comments/post/developerComment`,
+        {
+          developerOpportunity_id,
+          content: comment,
+          userId: authUserId,
+        },
+      );
+      if (response.data.success) {
+        toast.success("Comment added successfully. Please refresh");
+      }
+    } catch (error) {
+      toast.error("An error occured while adding comment " + error);
+      console.error("An error occured while adding comment " + error);
+    }
+  };
 
   useEffect(() => {
     async function fetch() {
@@ -32,7 +67,6 @@ const DeveloperView = () => {
         const response = await axios.get(
           `${baseUrl}/api/specificView/specificDevelopments/${developerOpportunity_id}`,
         );
-        console.log("Response:", response);
         if (!response.data.success) {
           console.error(
             response.data.error || "Failed to fetch opportunity details",
@@ -45,6 +79,17 @@ const DeveloperView = () => {
       }
     }
     fetch();
+    async function fetchComments() {
+      try {
+        const res = await axios.get(
+          `${baseUrl}/api/comments/get/developerComment/${developerOpportunity_id}`,
+        );
+        setComms(res.data.data);
+      } catch (error) {
+        console.error("An error occured while fetching comments : ", error);
+      }
+    }
+    fetchComments();
   }, [developerOpportunity_id]);
 
   return (
@@ -86,22 +131,35 @@ const DeveloperView = () => {
           </div>
         </div>
 
-        {/* Comments section 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-gray-200 mb-4">Comments ({commentCount})</h2>
+          <h2 className="text-2xl font-bold text-gray-200 mb-4">
+            Comments ({post?.commentCount})
+          </h2>
           <div className="bg-[#232223] rounded-2xl p-4">
-            <textarea 
-              placeholder="Add a comment..." 
-              className="w-full bg-[#1a191a] text-gray-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-[#e3a428]"
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Add a comment..."
+              className="w-full bg-[#1a191a] text-gray-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-[#2ba098]"
               rows={3}
             />
             <div className="flex justify-end mt-4">
-              <button className="bg-[#2ba098] hover:bg-[#2ba098] text-white font-bold py-2 px-6 rounded-full transition-colors">
+              <button
+                onClick={handleComment}
+                className="bg-[#2ba098] hover:bg-[#2ba098] text-white font-bold py-2 px-6 rounded-full transition-colors"
+              >
                 Post Comment
               </button>
             </div>
           </div>
-        </div>*/}
+          <div className="divider"></div>
+
+          {comms?.length === 0 ? (
+            <div className="text-gray-400 text-lg">No Opportunities found</div>
+          ) : (
+            comms?.map((comment) => <DevCommentView comment={comment} />)
+          )}
+        </div>
       </div>
     </div>
   );

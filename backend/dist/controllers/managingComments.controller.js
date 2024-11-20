@@ -37,6 +37,10 @@ export const postDesignerComment = ((req, res) => __awaiter(void 0, void 0, void
                 designerOpportunity_id: dO_idnum,
             },
         });
+        yield prisma.designerOpportunity.update({
+            where: { designerOpportunity_id: dO_idnum },
+            data: { commentCount: { increment: 1 } },
+        });
         res.status(201).json({
             success: true,
             message: "Comment added successfully",
@@ -76,6 +80,10 @@ export const postDeveloperComment = ((req, res) => __awaiter(void 0, void 0, voi
                 developerOpportunity_id: dOO_id,
             },
         });
+        yield prisma.developerOpportunity.update({
+            where: { developerOpportunity_id: dOO_id },
+            data: { commentCount: { increment: 1 } },
+        });
         res.status(201).json({
             success: true,
             message: "Comment added successfully",
@@ -88,12 +96,15 @@ export const postDeveloperComment = ((req, res) => __awaiter(void 0, void 0, voi
     }
 }));
 export const getDesignerComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const designerOpportunity_id = Number(req.params.designerOpportunity_id);
     try {
         const recentDesignerComments = yield prisma.designerOpportunityComment.findMany({
+            where: { designerOpportunity_id },
             include: {
                 user: {
                     select: {
-                        username: true,
+                        fullName: true,
+                        id: true,
                         profilePic: true,
                     },
                 },
@@ -107,12 +118,15 @@ export const getDesignerComment = ((req, res) => __awaiter(void 0, void 0, void 
     }
 }));
 export const getDeveloperComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const developerOpportunity_id = Number(req.params.developerOpportunity_id);
     try {
         const recentDeveloperComments = yield prisma.developerOpportunityComment.findMany({
+            where: { developerOpportunity_id },
             include: {
                 user: {
                     select: {
-                        username: true,
+                        fullName: true,
+                        id: true,
                         profilePic: true,
                     },
                 },
