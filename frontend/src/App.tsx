@@ -47,7 +47,7 @@ function App() {
   const { authUser } = useAuthContext();
 
   return (
-    <div className="bg-[#121212] min-h-screen">
+    <div className="bg-[#1c232b] h-max w-full">
       <Routes>
         <Route
           path="/login"

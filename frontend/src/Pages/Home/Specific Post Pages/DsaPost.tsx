@@ -31,7 +31,7 @@ const DsaPost = () => {
       });
       if (response.data.success) {
         toast.success("DSA post created successfully!");
-        navigate("/ds");
+        navigate("/dsa");
       } else {
         alert(response.data.message);
       }

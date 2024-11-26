@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import useLogin from "../../Hooks/useLogin.tsx";
 
 const Login = () => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState<String>();
   const [password, setPassword] = useState();
 
   const { login, loading } = useLogin();
@@ -36,7 +36,7 @@ const Login = () => {
                 type="text"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e: any) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-3 py-2 bg-[#1b1d36] bg-opacity-50 rounded-lg border border-gray-700 focus:border-cyan-600 focus:ring-2 focus:ring-cyan-600 text-cyan-600 placeholder-gray-400 transition duration-200 font-extrabold font-mono"
               />
             </div>

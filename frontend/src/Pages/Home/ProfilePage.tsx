@@ -45,7 +45,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen pt-7">
+    <div className="flex flex-col items-center h-full pt-7">
       <div>
         <AuthenticatedProfileCard />
       </div>

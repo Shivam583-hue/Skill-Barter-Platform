@@ -11,7 +11,7 @@ import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 const prisma = new PrismaClient();
-export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const signup = ((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { fullName, username, password, confirmPassword, email } = req.body;
         if (password != confirmPassword) {
@@ -22,7 +22,7 @@ export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function*
         if (user) {
             return res.status(400).json({ error: "User already exists" });
         }
-        //hash password  
+        //hash password
         const salt = yield bcrypt.genSalt(10);
         const hashedPassword = yield bcrypt.hash(password, salt);
         const profilePic = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -35,7 +35,7 @@ export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function*
                 profilePic: profilePic,
                 bio: "",
                 portfolio: "",
-            }
+            },
         });
         generateTokenAndSetCookie(newUser.id, res);
         res.status(201).json({
@@ -50,7 +50,7 @@ export const signup = ((req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json({ error: "Internal server error" });
     }
 }));
-export const login = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const login = ((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { email, password } = req.body;
         //@ts-ignore
@@ -74,13 +74,20 @@ export const login = ((req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ error: "Internal server error" });
     }
 }));
-export const logout = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.cookie("jwt", "", { maxAge: 0 });
-        res.status(200).json({ message: "logged out successfully" });
+        // Clear the JWT cookie
+        res.cookie("jwt", "", {
+            httpOnly: true, // Recommended for security
+            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+            sameSite: "strict", // Prevent CSRF
+            maxAge: 0, // Clear immediately
+        });
+        // Respond with a success message
+        res.status(200).json({ message: "Logged out successfully" });
     }
     catch (error) {
-        console.log(error);
+        console.error("Logout error:", error); // Improve error logging
         res.status(500).json({ error: "Internal server error" });
     }
-}));
+});

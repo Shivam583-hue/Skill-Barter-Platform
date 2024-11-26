@@ -132,7 +132,7 @@ const AuthenticatedProfileCard = () => {
       </div>
     </div>
   ) : (
-    <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-[500px] md:w-[900px] mx-auto my-4">
+    <div className="bg-black rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-[500px] md:w-[900px] mx-auto my-4">
       <div className="flex flex-col md:flex-row gap-6">
         <div className="flex flex-col items-center md:items-start">
           <img

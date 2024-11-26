@@ -2,9 +2,6 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface AuthUser {
   _id: string;
-  username: string;
-  fullName: string;
-  email: string;
 }
 
 interface AuthContextType {
@@ -12,12 +9,16 @@ interface AuthContextType {
   setAuthUser: React.Dispatch<React.SetStateAction<AuthUser | null>>;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined,
+);
 
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuthContext must be used within an AuthContextProvider");
+    throw new Error(
+      "useAuthContext must be used within an AuthContextProvider",
+    );
   }
   return context;
 };
@@ -31,7 +32,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     try {
       return JSON.parse(localStorage.getItem("chat-user") || "null");
     } catch {
-      return null; 
+      return null;
     }
   });
 

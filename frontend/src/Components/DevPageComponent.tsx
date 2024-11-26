@@ -31,6 +31,7 @@ const DevPageComponent = ({ opportunity }: Props) => {
   const commentCount = opportunity.commentCount;
   const developerOpportunity_id = opportunity.developerOpportunity_id;
 
+  // We use the params provided in this id to fetch the opportunity;
   function handleReadmore() {
     navigate(`/developer/${developerOpportunity_id}`);
   }

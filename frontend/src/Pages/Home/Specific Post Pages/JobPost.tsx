@@ -41,7 +41,7 @@ const JobPost = () => {
       );
       if (response.data.success) {
         toast.success("Job post created successfully!");
-        navigate("/jobs");
+        navigate("/job");
       } else {
         alert(response.data.message);
       }

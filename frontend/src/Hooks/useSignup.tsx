@@ -42,7 +42,6 @@ const useSignUp = () => {
         confirmPassword,
         email,
       });
-      console.log(response.data);
 
       if (response.data.error) {
         throw new Error(response.data.error);

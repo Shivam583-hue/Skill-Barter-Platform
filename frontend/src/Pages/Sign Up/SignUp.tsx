@@ -36,6 +36,9 @@ const SignUp = () => {
           Sign Up
           <span className="text-cyan-600"> OpportuneHub</span>
         </h1>
+        <p className="flex justify-center items-center text-sm">
+          If Sign up fails try a different username
+        </p>
         <form onSubmit={handleSubmit}>
           <div>
             <div className="relative my-6">
