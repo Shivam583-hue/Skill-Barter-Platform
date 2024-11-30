@@ -1,7 +1,7 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file.
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Looking for ways to speed up your queries or scale with serverless/edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
@@ -14,115 +14,156 @@ datasource db {
 }
 
 model User {
-  id                     Int                      @id @default(autoincrement())
-  fullName               String
-  email                  String                   @unique
-  profilePic             String
-  username               String                   @unique
-  password               String
-  bio                    String
-  portfolio              String
-  createdAt              DateTime                 @default(now())
+  id                       Int                        @id @default(autoincrement())
+  fullName                 String
+  email                    String                     @unique
+  profilePic               String?
+  username                 String                     @unique
+  password                 String
+  bio                      String?
+  portfolio                String?
+  createdAt                DateTime                   @default(now())
 
-  designerOpportunity    DesignerOpportunity[]    @relation("UserDesignerOpportunities")
-  developerOpportunity   DeveloperOpportunity[]   @relation("UserDeveloperOpportunities")
-  dsaStuff               DsaStuff[]               @relation("UserDsaStuff")
-  flex                   Flex[]                   @relation("UserFlex")
-  jobOpportunity         JobOpportunity[]         @relation("UserJobOpportunities")
+  designerOpportunity      DesignerOpportunity[]      @relation("UserDesignerOpportunities")
+  developerOpportunity     DeveloperOpportunity[]     @relation("UserDeveloperOpportunities")
+  dsaStuff                 DsaStuff[]                 @relation("UserDsaStuff")
+  flex                     Flex[]                     @relation("UserFlex")
+  jobOpportunity           JobOpportunity[]           @relation("UserJobOpportunities")
   developerOpportunityComments DeveloperOpportunityComment[] @relation("UserDeveloperOpportunityComments")
   designerOpportunityComments  DesignerOpportunityComment[]  @relation("UserDesignerOpportunityComments")
+
+  proposalsSent            Proposal[]                 @relation("SenderProposals")
+  proposalsReceived        Proposal[]                 @relation("ReceiverProposals")
+  groups                   Group[]                    @relation("UserGroups")
+}
+
+model Group {
+  groupId                  Int                        @id @default(autoincrement())
+  groupName                String
+  creatorId                Int
+  creator                  User                       @relation("UserGroups", fields: [creatorId], references: [id])
+  members                  User[]                     @relation("GroupMembers")
+  messages                 Message[]                  @relation("GroupMessages")
+  createdAt                DateTime                   @default(now())
+}
+
+model Message {
+  messageId                Int                        @id @default(autoincrement())
+  messageContent           String
+  messageCreatorId         Int
+  groupId                  Int
+  creator                  User                       @relation("UserMessages", fields: [messageCreatorId], references: [id])
+  group                    Group                      @relation("GroupMessages", fields: [groupId], references: [groupId])
+  createdAt                DateTime                   @default(now())
+}
+
+model Proposal {
+  id                       Int                        @id @default(autoincrement())
+  senderId                 Int
+  groupId                  Int
+  receiverId               Int
+  content                  String
+  status                   Status
+
+  sender                   User                       @relation("SenderProposals", fields: [senderId], references: [id])
+  receiver                 User                       @relation("ReceiverProposals", fields: [receiverId], references: [id])
+}
+
+enum Status {
+  PENDING
+  ACCEPTED
+  DENIED
 }
 
 model DesignerOpportunity {
-  designerOpportunity_id Int      @id @default(autoincrement())
-  createdAt              DateTime @default(now())
-  title                  String
-  commentCount           Int @default(0)
-  description            String   
-  content                String
-  userId                 Int     
-  user                   User     @relation("UserDesignerOpportunities", fields: [userId], references: [id], onDelete: Cascade)
-  comments               DesignerOpportunityComment[]
+  designerOpportunity_id   Int                        @id @default(autoincrement())
+  createdAt                DateTime                   @default(now())
+  title                    String
+  commentCount             Int                        @default(0)
+  description              String
+  content                  String
+  userId                   Int
+  user                     User                       @relation("UserDesignerOpportunities", fields: [userId], references: [id], onDelete: Cascade)
+  comments                 DesignerOpportunityComment[]
 
   @@index([userId])
 }
 
 model DeveloperOpportunity {
-  developerOpportunity_id Int      @id @default(autoincrement())
-  createdAt               DateTime @default(now())
-  title                   String
-  commentCount            Int      @default(0)
-  description             String   
-  content                 String
-  userId                  Int      
-  user                    User     @relation("UserDeveloperOpportunities", fields: [userId], references: [id], onDelete: Cascade)
-  comments                DeveloperOpportunityComment[]
+  developerOpportunity_id  Int                        @id @default(autoincrement())
+  createdAt                DateTime                   @default(now())
+  title                    String
+  commentCount             Int                        @default(0)
+  description              String
+  content                  String
+  userId                   Int
+  user                     User                       @relation("UserDeveloperOpportunities", fields: [userId], references: [id], onDelete: Cascade)
+  comments                 DeveloperOpportunityComment[]
 
   @@index([userId])
 }
 
 model DesignerOpportunityComment {
-  comment_id             Int      @id @default(autoincrement())
-  content                String
-  userId                 Int      
-  designerOpportunity_id Int
-  createdAt             DateTime @default(now())
-  user                   User     @relation("UserDesignerOpportunityComments", fields: [userId], references: [id])
-  designerOpportunity   DesignerOpportunity @relation(fields: [designerOpportunity_id], references: [designerOpportunity_id], onDelete: Cascade)
+  comment_id               Int                        @id @default(autoincrement())
+  content                  String
+  userId                   Int
+  designerOpportunity_id   Int
+  createdAt                DateTime                   @default(now())
+  user                     User                       @relation("UserDesignerOpportunityComments", fields: [userId], references: [id])
+  designerOpportunity      DesignerOpportunity        @relation(fields: [designerOpportunity_id], references: [designerOpportunity_id], onDelete: Cascade)
 
   @@index([userId])
   @@index([designerOpportunity_id])
 }
 
 model DeveloperOpportunityComment {
-  comment_id             Int      @id @default(autoincrement())
-  content                String
-  userId                 Int      
-  developerOpportunity_id Int
-  createdAt             DateTime @default(now())
-  user                   User     @relation("UserDeveloperOpportunityComments", fields: [userId], references: [id])
-  developerOpportunity   DeveloperOpportunity @relation(fields: [developerOpportunity_id], references: [developerOpportunity_id], onDelete: Cascade)
+  comment_id               Int                        @id @default(autoincrement())
+  content                  String
+  userId                   Int
+  developerOpportunity_id  Int
+  createdAt                DateTime                   @default(now())
+  user                     User                       @relation("UserDeveloperOpportunityComments", fields: [userId], references: [id])
+  developerOpportunity     DeveloperOpportunity       @relation(fields: [developerOpportunity_id], references: [developerOpportunity_id], onDelete: Cascade)
 
   @@index([userId])
   @@index([developerOpportunity_id])
 }
 
 model DsaStuff {
-  dsaStuff_id   Int      @id @default(autoincrement())
-  content       String
-  title         String
-  description   String
-  userId        Int      
-  createdAt     DateTime @default(now())
-  user          User     @relation("UserDsaStuff", fields: [userId], references: [id], onDelete: Cascade)
+  dsaStuff_id              Int                        @id @default(autoincrement())
+  content                  String
+  title                    String
+  description              String
+  userId                   Int
+  createdAt                DateTime                   @default(now())
+  user                     User                       @relation("UserDsaStuff", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model Flex {
-  flex_id     Int      @id @default(autoincrement())
-  content     String
-  title       String
-  description String    
-  userId      Int      
-  createdAt   DateTime @default(now())
-  user        User     @relation("UserFlex", fields: [userId], references: [id], onDelete: Cascade)
+  flex_id                  Int                        @id @default(autoincrement())
+  content                  String
+  title                    String
+  description              String
+  userId                   Int
+  createdAt                DateTime                   @default(now())
+  user                     User                       @relation("UserFlex", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model JobOpportunity {
-  jobOpportunity_id Int    @id @default(autoincrement())
-  description       String
-  title             String
-  company           String
-  location          String
-  salary            String
-  applyLink         String
-  userId            Int    
-  createdAt         DateTime @default(now())
-  user              User   @relation("UserJobOpportunities", fields: [userId], references: [id], onDelete: Cascade)
+  jobOpportunity_id        Int                        @id @default(autoincrement())
+  description              String
+  title                    String
+  company                  String
+  location                 String
+  salary                   String
+  applyLink                String
+  userId                   Int
+  createdAt                DateTime                   @default(now())
+  user                     User                       @relation("UserJobOpportunities", fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
-

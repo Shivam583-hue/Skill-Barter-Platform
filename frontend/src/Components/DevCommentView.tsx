@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
+
 
 export interface User {
   id: number;
@@ -19,6 +22,20 @@ interface Props {
 }
 
 const DevCommentView = ({ comment }: Props) => {
+
+  const navigate = useNavigate();
+
+  const { authUser } = useAuthContext() as { authUser: User | null };
+  const userId = authUser?.id;
+
+  function handleDetails() {
+    if (comment?.user.id == userId) {
+      navigate("/profile");
+    } else {
+      navigate(`/profile/${comment?.user.id}`);
+    }
+  }
+
   return (
     <div className="bg-[#7DA0CA] rounded-2xl p-6 mt-5 shadow-lg">
       <div className="flex items-center space-x-4 mb-4">
@@ -26,15 +43,16 @@ const DevCommentView = ({ comment }: Props) => {
         <img
           src={comment?.user.profilePic}
           alt="User profile"
-          className="w-12 h-12 rounded-full shadow-md"
+          onClick={handleDetails}
+          className="w-12 h-12 rounded-full hover:cursor-pointer shadow-md"
         />
 
         {/* User Info */}
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-gray-800">
+          <h3 onClick={handleDetails} className="text-sm hover:cursor-pointer font-bold text-gray-600">
             {comment?.user.fullName}
           </h3>
-          <p className="font-semibold text-sm text-gray-600">
+          <p className="font-extrabold text-lg text-black">
             {comment?.content}
           </p>
         </div>

@@ -1,8 +1,6 @@
 import * as express from "express";
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 
 // Get Profile by ID
 export const getAuthenticatedProfile = (async (req: Request, res: Response) => {

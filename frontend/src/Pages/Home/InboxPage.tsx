@@ -1,6 +1,45 @@
+import { useAuthContext } from "../../context/AuthContext.tsx"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import { baseUrl } from "../../Hooks/useSignup.tsx"
 import InboxPageComponent from "../../Components/InboxPageComponent";
 
+
+export interface User {
+  id: number;
+  fullName: string;
+  profilePic: string;
+}
+
+interface Proposal {
+  content: string;
+  status: string;
+  sender: User
+}
+
 const InboxPage = () => {
+
+  const [proposal, setProposal] = useState<Proposal[]>([]);
+  const { authUser } = useAuthContext() as { authUser: User | null };
+  const id = authUser?.id;
+
+  useEffect(() => {
+    const fetchProposals = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/proposal/getAuthenticatedUsersProposals`, {
+          params: { receiverId: id }
+        })
+        setProposal(response.data.data || [])
+        console.log(proposal)
+      } catch (error) {
+        console.log("Error fetching proposals");
+      }
+    }
+    fetchProposals();
+
+  }, [id])
+
+
   return (
     <div className="flex flex-col mt-5 items-center h-screen">
       <div>
@@ -10,14 +49,13 @@ const InboxPage = () => {
         <div className="divider"></div>
       </div>
       <div>
-        <InboxPageComponent
-          sent_by="John Doe"
-          sent_by_image="https://i.pinimg.com/474x/6f/29/15/6f2915c19523846d99ec56ea09914522.jpg"
-          sent_on="2024-01-01"
-          proposal_id={1}
-          proposal_title="Proposal Title"
-          proposal_description="Proposal Description"
-        />
+        {proposal.length == 0 ? (
+          <div className="text-gray-400 text-lg">No Opportunities found</div>
+        ) : (
+          proposal.map((proposal) => (
+            <InboxPageComponent key={proposal.sender.id} proposal={proposal} />
+          ))
+        )}
       </div>
     </div>
   );

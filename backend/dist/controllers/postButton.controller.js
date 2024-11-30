@@ -7,8 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 export const designerOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, content, userId } = req.body;
     if (!title || !description || !content || !userId)
@@ -156,9 +155,7 @@ export const jobOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, f
                 userId,
             },
         });
-        return res
-            .status(201)
-            .json({
+        return res.status(201).json({
             success: true,
             message: "Job opportunity created",
             data: newJob,

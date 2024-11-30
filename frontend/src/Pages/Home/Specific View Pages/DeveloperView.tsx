@@ -155,7 +155,7 @@ const DeveloperView = () => {
           <div className="divider"></div>
 
           {comms?.length === 0 ? (
-            <div className="text-gray-400 text-lg">No Opportunities found</div>
+            <div className="text-gray-400 text-lg">No Comments found</div>
           ) : (
             comms?.map((comment) => <DevCommentView comment={comment} />)
           )}

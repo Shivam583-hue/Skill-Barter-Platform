@@ -7,9 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 const hundredHoursAgo = new Date(Date.now() - 100 * 60 * 60 * 1000);
+import { prisma } from "../clientInstance.js";
 export const getDesigner = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const recentDesigns = yield prisma.designerOpportunity.findMany({
@@ -19,6 +18,7 @@ export const getDesigner = (req, res) => __awaiter(void 0, void 0, void 0, funct
             include: {
                 user: {
                     select: {
+                        id: true,
                         fullName: true,
                         profilePic: true,
                     },
@@ -51,6 +51,7 @@ export const getDeveloper = (req, res) => __awaiter(void 0, void 0, void 0, func
             include: {
                 user: {
                     select: {
+                        id: true,
                         fullName: true,
                         profilePic: true,
                     },
@@ -81,6 +82,7 @@ export const getDsa = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             include: {
                 user: {
                     select: {
+                        id: true,
                         fullName: true,
                         profilePic: true,
                     },
@@ -104,6 +106,7 @@ export const getFlex = (req, res) => __awaiter(void 0, void 0, void 0, function*
             include: {
                 user: {
                     select: {
+                        id: true,
                         fullName: true,
                         profilePic: true,
                     },
@@ -126,6 +129,15 @@ export const getJobs = (req, res) => __awaiter(void 0, void 0, void 0, function*
             where: {
                 //@ts-ignore
                 createdAt: { gte: new Date(Date.now() - 100 * 60 * 60 * 1000) },
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        fullName: true,
+                        profilePic: true,
+                    },
+                },
             },
         }); // First test without any conditions
         res.json({

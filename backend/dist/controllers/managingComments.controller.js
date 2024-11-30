@@ -7,8 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 export const postDesignerComment = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { content, userId, designerOpportunity_id } = req.body;
     if (!content || !userId || !designerOpportunity_id)

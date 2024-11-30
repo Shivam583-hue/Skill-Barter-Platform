@@ -4,10 +4,12 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import postButtonRoutes from "./routes/postButton.route.js";
 import authenticatedProfileComponentRoutes from "./routes/authenticatedProfilePageComponents.route.js";
+import proposalRoutes from "./routes/proposals.route.js";
 import authenticatedProfileRoutes from "./routes/authenticatedProfile.route.js";
 import specificView from "./routes/specificView.route.js";
 import managingComments from "./routes/managingComments.route.js";
 import getPreviewCardsRoutes from "./routes/getPreviewCards.route.js";
+import groupRoutes from "./routes/group.route.js"
 import { Request, Response } from "express";
 
 const app = express();
@@ -35,10 +37,12 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api", postButtonRoutes);
 app.use("/api/preview", getPreviewCardsRoutes);
+app.use("/api",groupRoutes);
 app.use("/api", authenticatedProfileRoutes);
 app.use("/api", authenticatedProfileComponentRoutes);
 app.use("/api/specificView", specificView);
 app.use("/api/comments", managingComments);
+app.use("/api/proposal", proposalRoutes)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Server is running");

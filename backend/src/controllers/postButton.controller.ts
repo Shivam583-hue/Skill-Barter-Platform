@@ -1,8 +1,6 @@
 import * as express from "express";
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 
 interface DesignerOpportunity {
   title: string;
@@ -184,13 +182,11 @@ export const jobOpportunity = (async (req: Request, res: Response) => {
         userId,
       },
     });
-    return res
-      .status(201)
-      .json({
-        success: true,
-        message: "Job opportunity created",
-        data: newJob,
-      });
+    return res.status(201).json({
+      success: true,
+      message: "Job opportunity created",
+      data: newJob,
+    });
   } catch (error) {
     console.error("Error creating Job opportunity:", error);
     res.status(500).json({ success: false, error: "Internal server error" });

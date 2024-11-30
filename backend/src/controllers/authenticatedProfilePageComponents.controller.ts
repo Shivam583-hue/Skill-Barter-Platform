@@ -4,10 +4,7 @@ import express, {
   RequestHandler,
   Response,
 } from "express";
-import { PrismaClient } from "@prisma/client";
-import { jobOpportunity } from "./postButton.controller";
-
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 
 //----------------design---------------
 export const getAuthenticatedDesigns = (async (req: Request, res: Response) => {

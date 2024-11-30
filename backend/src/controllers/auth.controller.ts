@@ -1,9 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 
 export const signup = (async (
   req: Request,
@@ -103,4 +102,3 @@ export const logout = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-

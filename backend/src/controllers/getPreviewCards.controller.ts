@@ -1,8 +1,6 @@
 import express, { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 const hundredHoursAgo = new Date(Date.now() - 100 * 60 * 60 * 1000);
+import { prisma } from "../clientInstance.js";
 
 export const getDesigner = async (req: Request, res: Response) => {
   try {
@@ -13,6 +11,7 @@ export const getDesigner = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
+            id: true,
             fullName: true,
             profilePic: true,
           },
@@ -46,6 +45,7 @@ export const getDeveloper = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
+            id: true,
             fullName: true,
             profilePic: true,
           },
@@ -77,6 +77,7 @@ export const getDsa = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
+            id: true,
             fullName: true,
             profilePic: true,
           },
@@ -100,6 +101,7 @@ export const getFlex = async (req: Request, res: Response) => {
       include: {
         user: {
           select: {
+            id: true,
             fullName: true,
             profilePic: true,
           },
@@ -122,6 +124,15 @@ export const getJobs = async (req: Request, res: Response) => {
       where: {
         //@ts-ignore
         createdAt: { gte: new Date(Date.now() - 100 * 60 * 60 * 1000) },
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            fullName: true,
+            profilePic: true,
+          },
+        },
       },
     }); // First test without any conditions
 

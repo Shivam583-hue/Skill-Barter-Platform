@@ -21,6 +21,9 @@ import DesignOpptur from "./Pages/Home/Specific Post Pages/DesignOpptur.tsx";
 import DsaPost from "./Pages/Home/Specific Post Pages/DsaPost.tsx";
 import FlexPost from "./Pages/Home/Specific Post Pages/FlexPost.tsx";
 import JobPost from "./Pages/Home/Specific Post Pages/JobPost.tsx";
+import OthersFlexes from "./Pages/Home/OthersSubProfilePages/OthersFlexes.tsx";
+import OthersPostedJobs from "./Pages/Home/OthersSubProfilePages/OthersPostedJobs.tsx";
+import OthersPostedOpportunities from "./Pages/Home/OthersSubProfilePages/OthersPostedOpportunities.tsx";
 
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -107,6 +110,29 @@ function App() {
             element={authUser ? <JobPage /> : <Navigate to="/login" />}
           />
           <Route
+            path="/profile/:id"
+            element={authUser ? <OthersProfile /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/profile/postedflexes/:id"
+            element={authUser ? <OthersFlexes /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/postedjobs/:id"
+            element={authUser ? <OthersPostedJobs /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/postedopportunities/:id"
+            element={
+              authUser ? (
+                <OthersPostedOpportunities />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
             path="/profile"
             element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
           >
@@ -152,10 +178,6 @@ function App() {
           <Route
             path="/inbox"
             element={authUser ? <InboxPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/profile/:username"
-            element={authUser ? <OthersProfile /> : <Navigate to="/login" />}
           />
           <Route
             path="/postoptions/JobPost"

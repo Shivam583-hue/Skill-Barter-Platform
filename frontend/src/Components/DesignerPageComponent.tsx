@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 export interface User {
   id: number;
@@ -24,6 +25,7 @@ interface Props {
 const DesignerPageComponent = ({ opportunity }: Props) => {
   const title = opportunity.title;
   const navigate = useNavigate();
+  const creatorId = opportunity.user.id;
   const creatorimage = opportunity.user.profilePic;
   const Createdby = opportunity.user.fullName;
   const description = opportunity.description;
@@ -31,8 +33,19 @@ const DesignerPageComponent = ({ opportunity }: Props) => {
   const commentCount = opportunity.commentCount;
   const designerOpportunity_id = opportunity.designerOpportunity_id;
 
+  const { authUser } = useAuthContext() as { authUser: User | null };
+  const userId = authUser?.id;
+
   function handleDetails() {
     navigate(`/designer/${designerOpportunity_id}`);
+  }
+
+  function handleProfileRedirect() {
+    if (creatorId == userId) {
+      navigate("/profile");
+    } else {
+      navigate(`/profile/${creatorId}`);
+    }
   }
 
   return (
@@ -42,11 +55,17 @@ const DesignerPageComponent = ({ opportunity }: Props) => {
           <div className="flex items-center space-x-3">
             <img
               src={creatorimage}
+              onClick={handleProfileRedirect}
               alt={Createdby}
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full hover:cursor-pointer"
             />
             <div>
-              <h3 className="text-gray-300 font-semibold">{Createdby}</h3>
+              <h3
+                onClick={handleProfileRedirect}
+                className="text-gray-300 font-semibold hover:cursor-pointer"
+              >
+                {Createdby}
+              </h3>
               <p className="text-gray-400 text-sm">Posted on: {postedOn}</p>
             </div>
           </div>

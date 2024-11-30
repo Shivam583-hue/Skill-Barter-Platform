@@ -2,6 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+const spring = {
+  type: "spring",
+  stiffness: 700,
+  damping: 30,
+};
+
 const Home = () => {
   const navigate = useNavigate();
   const [isHomeActive, setIsHomeActive] = useState(true);
@@ -9,7 +15,11 @@ const Home = () => {
 
   return (
     <div className="flex flex-col justify-center items-center px-4">
-      <div className="w-max h-max mt-5 p-1 rounded-full bg-[#121212] border border-white shadow-lg flex flex-row flex-wrap justify-center gap-2">
+      <motion.div
+        layout
+        transition={spring}
+        className="w-max handle h-max mt-5 p-1 rounded-full bg-[#121212] border border-white shadow-lg flex flex-row flex-wrap justify-center gap-2"
+      >
         <motion.button
           className={`${
             isHomeActive
@@ -39,7 +49,7 @@ const Home = () => {
         >
           Chatrooms
         </motion.button>
-      </div>
+      </motion.div>
 
       <div className="bg-[#011627] rounded-[50px] my-10 p-6 sm:p-10 w-full max-w-[700px]">
         <h1 className="text-cyan-500 text-[28px] sm:text-[35px] font-semibold font-mono text-center">

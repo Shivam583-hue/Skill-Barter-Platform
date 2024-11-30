@@ -1,7 +1,5 @@
 import express, { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../clientInstance.js";
 
 export const specificDesigns = (async (req: Request, res: Response) => {
   const designerOpportunity_id = Number(req.params.designerOpportunity_id);
