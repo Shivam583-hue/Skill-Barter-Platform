@@ -24,6 +24,8 @@ import JobPost from "./Pages/Home/Specific Post Pages/JobPost.tsx";
 import OthersFlexes from "./Pages/Home/OthersSubProfilePages/OthersFlexes.tsx";
 import OthersPostedJobs from "./Pages/Home/OthersSubProfilePages/OthersPostedJobs.tsx";
 import OthersPostedOpportunities from "./Pages/Home/OthersSubProfilePages/OthersPostedOpportunities.tsx";
+import SpecificChatRoom from "./Components/SpecificChatRoom.tsx";
+import ViewMembers from "./Components/ViewMembers.tsx"
 
 import { Toaster } from "react-hot-toast";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -89,6 +91,8 @@ function App() {
             path="/designer/:designerOpportunity_id"
             element={authUser ? <DesignView /> : <Navigate to="/login" />}
           />
+          <Route path="/groupMembers/" element={authUser ? <ViewMembers /> : <Navigate to="/login" />} />
+          <Route path="/group/:groupId" element={authUser ? <SpecificChatRoom /> : <Navigate to="/login" />} />
           <Route
             path="/flex"
             element={authUser ? <FlexPage /> : <Navigate to="/login" />}

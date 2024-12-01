@@ -104,7 +104,7 @@ const AllChatRooms = () => {
         ))
       )}
 
-      <motion.button onClick={() => setToggleDialogue(true)} whileHover={{ scale: 1.1 }} whileTap={{ scale: 1 }} className="absolute bottom-10 right-10 bg-black border border-white text-white p-3 rounded-full border-2 shadow-lg z-50 hover:bg-gray-900 focus:outline-none">
+      <motion.button onClick={() => setToggleDialogue(true)} whileHover={{ scale: 1.1 }} whileTap={{ scale: 1 }} className="absolute font bottom-10 right-10 bg-black border border-white text-white p-3 rounded-full border-2 shadow-lg z-50 hover:bg-gray-900 focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#FFFFFF"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" /></svg>
       </motion.button>
 
