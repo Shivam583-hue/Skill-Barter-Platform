@@ -18,6 +18,7 @@ export interface Opp {
   developerOpportunity_id: number;
   title: string;
   createdAt: string;
+  groupId:string;
   commentCount: number;
   description: string;
   content: string;

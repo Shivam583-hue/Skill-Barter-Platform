@@ -56,7 +56,7 @@ const DesignOpptur = () => {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
+          className="bg-transparent text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
           placeholder="Title goes here."
         />
       </div>
@@ -65,7 +65,7 @@ const DesignOpptur = () => {
           type="number"
           value={groupId}
           onChange={(e) => setGroupId(Number(e.target.value))}
-          className="text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
+          className="bg-transparent text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
           placeholder="Group id you want users to join..."
         />
       </div>
@@ -73,7 +73,7 @@ const DesignOpptur = () => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full h-24 sm:h-32 text-white md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 bg-transparent sm:h-32 text-white md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Description goes here."
         />
       </div>
@@ -81,7 +81,7 @@ const DesignOpptur = () => {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full h-24 sm:h-32 md:h-40 text-white lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 sm:h-32 md:h-40 bg-transparent text-white lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Details go here."
         />
       </div>
@@ -89,7 +89,7 @@ const DesignOpptur = () => {
         onClick={handleCreate}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}
-        className="bg-[#3a3b3a] hover:bg-[#555655] rounded-2xl px-3 font-mono text-gray-300 font-bold text-lg py-1 mx-4 my-2"
+        className="bg-[#3a3b3a] hover:bg-[#555655] rounded-2xl px-3  font-mono text-gray-300 font-bold text-lg py-1 mx-4 my-2"
       >
         Create
       </motion.button>

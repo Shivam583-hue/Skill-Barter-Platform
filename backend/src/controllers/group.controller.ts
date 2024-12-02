@@ -159,8 +159,6 @@ export const addMembers = (async (req: Request, res: Response) => {
       error: "User ID and Group ID are required",
     });
   }
-  console.log("User id : ", userId)
-  console.log("Group id: ", groupId)
   try {
     const response = await prisma.group.update({
       where: { groupId },

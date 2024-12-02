@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { prisma } from "../clientInstance.js";
 export const designerOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, description, content, userId } = req.body;
-    if (!title || !description || !content || !userId)
+    const { title, description, content, userId, groupId } = req.body;
+    if (!title || !description || !content || !userId || !groupId)
         return res
             .status(400)
             .json({ success: false, message: "All Fields are required." });
@@ -25,8 +25,10 @@ export const designerOpportunity = ((req, res) => __awaiter(void 0, void 0, void
             data: {
                 title,
                 description,
+                groupId,
                 content,
                 userId,
+                commentCount: 0,
             },
         });
         res
@@ -39,8 +41,8 @@ export const designerOpportunity = ((req, res) => __awaiter(void 0, void 0, void
     }
 }));
 export const developerOpportunity = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, description, content, userId } = req.body;
-    if (!title || !description || !content || !userId)
+    const { title, description, content, userId, groupId } = req.body;
+    if (!title || !description || !content || !userId || !groupId)
         return res
             .status(400)
             .json({ success: false, message: "All Fields are required." });
@@ -57,6 +59,7 @@ export const developerOpportunity = ((req, res) => __awaiter(void 0, void 0, voi
                 description,
                 content,
                 userId,
+                groupId,
                 commentCount: 0,
             },
         });

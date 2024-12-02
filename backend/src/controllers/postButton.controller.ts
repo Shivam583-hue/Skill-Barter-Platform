@@ -6,6 +6,7 @@ interface DesignerOpportunity {
   title: string;
   description: string;
   content: string;
+  groupId: number
   userId: number;
 }
 
@@ -13,14 +14,15 @@ interface DeveloperOpportunity {
   title: string;
   description: string;
   content: string;
+  groupId: number
   userId: number;
 }
 
 export const designerOpportunity = (async (req: Request, res: Response) => {
-  const { title, description, content, userId } =
+  const { title, description, content, userId, groupId } =
     req.body as DesignerOpportunity;
 
-  if (!title || !description || !content || !userId)
+  if (!title || !description || !content || !userId || !groupId)
     return res
       .status(400)
       .json({ success: false, message: "All Fields are required." });
@@ -37,8 +39,10 @@ export const designerOpportunity = (async (req: Request, res: Response) => {
       data: {
         title,
         description,
+        groupId,
         content,
         userId,
+        commentCount: 0,
       },
     });
     res
@@ -51,10 +55,10 @@ export const designerOpportunity = (async (req: Request, res: Response) => {
 }) as express.RequestHandler;
 
 export const developerOpportunity = (async (req: Request, res: Response) => {
-  const { title, description, content, userId } =
+  const { title, description, content, userId, groupId } =
     req.body as DeveloperOpportunity;
 
-  if (!title || !description || !content || !userId)
+  if (!title || !description || !content || !userId || !groupId)
     return res
       .status(400)
       .json({ success: false, message: "All Fields are required." });
@@ -73,6 +77,7 @@ export const developerOpportunity = (async (req: Request, res: Response) => {
         description,
         content,
         userId,
+        groupId,
         commentCount: 0,
       },
     });

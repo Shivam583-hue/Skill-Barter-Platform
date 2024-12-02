@@ -83,6 +83,7 @@ model DesignerOpportunity {
   title                  String
   commentCount           Int                          @default(0)
   description            String
+  groupId                Int?
   content                String
   userId                 Int
   user                   User                         @relation("UserDesignerOpportunities", fields: [userId], references: [id], onDelete: Cascade)
@@ -98,6 +99,7 @@ model DeveloperOpportunity {
   commentCount            Int                           @default(0)
   description             String
   content                 String
+  groupId                 Int?
   userId                  Int
   user                    User                          @relation("UserDeveloperOpportunities", fields: [userId], references: [id], onDelete: Cascade)
   comments                DeveloperOpportunityComment[]
