@@ -18,6 +18,7 @@ const DesignOpptur = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
+  const [groupId, setGroupId] = useState<number>(0)
   const navigate = useNavigate();
   const handleCreate = async () => {
     try {
@@ -27,6 +28,7 @@ const DesignOpptur = () => {
           userId: userid,
           title,
           description,
+          groupId,
           content,
         },
       );
@@ -54,15 +56,24 @@ const DesignOpptur = () => {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="text-3xl font-bold w-full md:w-[900px] focus:outline-none text-mono"
+          className="text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
           placeholder="Title goes here."
+        />
+      </div>
+      <div className="p-4">
+        <input
+          type="number"
+          value={groupId}
+          onChange={(e) => setGroupId(Number(e.target.value))}
+          className="text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
+          placeholder="Group id you want users to join..."
         />
       </div>
       <div className="p-4">
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 sm:h-32 text-white md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Description goes here."
         />
       </div>
@@ -70,7 +81,7 @@ const DesignOpptur = () => {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 sm:h-32 md:h-40 text-white lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Details go here."
         />
       </div>

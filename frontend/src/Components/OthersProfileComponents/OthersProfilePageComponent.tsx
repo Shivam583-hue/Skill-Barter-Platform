@@ -34,16 +34,16 @@ interface Profile {
 }
 
 const OthersProfilePageComponent = () => {
-  const { authUser } = useAuthContext() as { authUser: Sender | null };
-  const senderId = authUser?.senderId;
+  const { authUser } = useAuthContext() as { authUser: User | null };
 
+  const senderId = authUser?.id
   const { id } = useParams();
 
   const [profie, setProfie] = useState<Profile | null>(null);
   const [toggleProposal, setToggleProposal] = useState(false)
 
   const [content, setContent] = useState("")
-  const [groupId, setGroupId] = useState(0)
+  const [groupId, setGroupId] = useState<number>(0)
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -68,9 +68,13 @@ const OthersProfilePageComponent = () => {
         content,
         groupId
       })
-      if (response.data.success)
+      if (response.data.success) {
+        toast.success("Proposal sent successfully! ");
         setToggleProposal(false)
-      toast.success("Proposal sent successfully! ");
+      } else {
+        console.error("Error Occured : ", response.data)
+        console.log(content, groupId, senderId, id)
+      }
     } catch (error) {
       console.error("Error sending proposal:", error);
       toast.error("Failed to send proposal, please try again later.");
@@ -171,7 +175,7 @@ const OthersProfilePageComponent = () => {
                   <label className="text-gray-300 text-sm">MESSAGE</label>
                   <textarea value={content} onChange={(e) => setContent(e.target.value)} className="text-gray-400 w-full bg-black resize-none outline-none border-none" placeholder="Share the specifics of your proposal..." />
                   <label className="text-gray-300 text-sm">GROUP ID </label>
-                  <input value={groupId} onChange={(e) => setGroupId(e.target.value)} className="text-gray-400 w-full bg-black outline-none border-none" placeholder="Specify the group ID for the expected join..." />
+                  <input value={groupId} onChange={(e) => setGroupId(Number(e.target.value))} className="text-gray-400 w-full bg-black outline-none border-none" placeholder="Specify the group ID for the expected join..." />
                 </div>
                 <DialogFooter>
                   <motion.button whileHover={{ scale: 1.1 }}

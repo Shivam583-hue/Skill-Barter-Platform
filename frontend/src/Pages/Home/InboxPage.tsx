@@ -1,4 +1,5 @@
 import { useAuthContext } from "../../context/AuthContext.tsx"
+import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { baseUrl } from "../../Hooks/useSignup.tsx"
@@ -13,8 +14,10 @@ export interface User {
 
 interface Proposal {
   content: string;
+  groupId: number;
   status: string;
   sender: User
+  Proposalid: number,
 }
 
 const InboxPage = () => {
@@ -30,8 +33,8 @@ const InboxPage = () => {
           params: { receiverId: id }
         })
         setProposal(response.data.data || [])
-        console.log(proposal)
       } catch (error) {
+        toast.error("Failed to fetch your inbox, please try again later")
         console.log("Error fetching proposals");
       }
     }
@@ -50,7 +53,7 @@ const InboxPage = () => {
       </div>
       <div>
         {proposal.length == 0 ? (
-          <div className="text-gray-400 text-lg">No Opportunities found</div>
+          <div className="text-gray-400 text-lg">No Proposals</div>
         ) : (
           proposal.map((proposal) => (
             <InboxPageComponent key={proposal.sender.id} proposal={proposal} />

@@ -85,9 +85,9 @@ export const getAuthenticatedUsersProposals = (async (req, res) => {
 
 export const acceptProposal = (async (req, res) => {
   // TODO : add the chat functionality later
-  const { id, senderId, receiverId, content, groupId } = req.body as Proposal;
+  const { id } = req.body as Proposal;
 
-  if (!id || !senderId || !receiverId || !content || !groupId) {
+  if (!id) {
     return res.status(202).json({ success: false, msg: "Invalid request" });
   }
   try {

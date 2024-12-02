@@ -159,6 +159,8 @@ export const addMembers = ((req, res) => __awaiter(void 0, void 0, void 0, funct
             error: "User ID and Group ID are required",
         });
     }
+    console.log("User id : ", userId);
+    console.log("Group id: ", groupId);
     try {
         const response = yield prisma.group.update({
             where: { groupId },

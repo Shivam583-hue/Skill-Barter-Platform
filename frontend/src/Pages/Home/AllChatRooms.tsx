@@ -64,6 +64,9 @@ const AllChatRooms = () => {
       })
       if (response.data.success) {
         toast.success("Group Created Sucessfully, please refresh")
+        console.log(response.data.data.groupId)
+        setTimeout(() =>
+          alert(`${response.data.data.groupId} is the groupId, keep it secure and remember it for future use cases`), 2000)
       } else {
         console.log(response.data)
       }
@@ -96,7 +99,7 @@ const AllChatRooms = () => {
           Chatrooms
         </motion.button>
       </div>
-      {Group.length === 0 ? (
+      {groups.length === 0 ? (
         <div className="text-gray-400 text-lg">No Groups Joined/ Creatred</div>
       ) : (
         groups.map((GroupChat) => (
