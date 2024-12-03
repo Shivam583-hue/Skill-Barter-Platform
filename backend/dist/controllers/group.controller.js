@@ -13,8 +13,8 @@ export const getSpecificGroupDetails = ((req, res) => __awaiter(void 0, void 0, 
     try {
         const groupDetails = yield prisma.group.findUnique({
             where: {
-                groupId
-            }
+                groupId,
+            },
         });
         if (!groupDetails) {
             return res.status(404).json({
@@ -43,10 +43,10 @@ export const getMembersInAGroup = ((req, res) => __awaiter(void 0, void 0, void 
                         id: true,
                         fullName: true,
                         username: true,
-                        profilePic: true
-                    }
-                }
-            }
+                        profilePic: true,
+                    },
+                },
+            },
         });
         if (!group) {
             return res.status(404).json({
@@ -74,7 +74,7 @@ export const getMessagesInAGroup = ((req, res) => __awaiter(void 0, void 0, void
             skip: offset,
             take: limit,
             orderBy: {
-                createdAt: 'desc',
+                createdAt: "desc",
             },
         });
         if (messages.length === 0) {
@@ -104,7 +104,7 @@ export const groupJoinedbyAuthenticatedUser = ((req, res) => __awaiter(void 0, v
         }
         res.status(200).json({
             success: true,
-            data: userWithGroups.memberOfGroups
+            data: userWithGroups.memberOfGroups,
         });
     }
     catch (error) {
@@ -149,9 +149,9 @@ export const createGroup = ((req, res) => __awaiter(void 0, void 0, void 0, func
                 groupName,
                 creatorId: userId,
                 members: {
-                    connect: { id: userId }
+                    connect: { id: userId },
                 },
-            }
+            },
         });
         res.status(201).json({ success: true, data: group });
     }
@@ -173,7 +173,7 @@ export const addMembers = ((req, res) => __awaiter(void 0, void 0, void 0, funct
             where: { groupId },
             data: {
                 members: { connect: { id: userId } },
-            }
+            },
         });
         res.status(201).json({ success: true, data: response });
     }
@@ -196,7 +196,7 @@ export const removeMembers = ((req, res) => __awaiter(void 0, void 0, void 0, fu
     try {
         const response = yield prisma.group.update({
             where: { groupId },
-            data: { members: { disconnect: { id: userId } } }
+            data: { members: { disconnect: { id: userId } } },
         });
         res.status(200).json({
             success: true,
@@ -231,7 +231,7 @@ export const deleteGroup = ((req, res) => __awaiter(void 0, void 0, void 0, func
                 .json({ success: false, message: "Design Opportunity not found." });
         }
         yield prisma.group.delete({
-            where: { groupId }
+            where: { groupId },
         });
         res.status(200).json({
             success: true,

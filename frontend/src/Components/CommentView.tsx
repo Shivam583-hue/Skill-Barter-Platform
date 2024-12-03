@@ -23,7 +23,6 @@ interface Opp {
   groupId: number;
 }
 
-
 interface Comment {
   comment_id: number;
   isCreator: boolean;
@@ -37,7 +36,6 @@ interface Props {
 }
 
 const CommentView = ({ comment }: Props) => {
-
   const navigate = useNavigate();
 
   const { authUser } = useAuthContext() as { authUser: User | null };
@@ -48,7 +46,7 @@ const CommentView = ({ comment }: Props) => {
     async function fetch() {
       try {
         const response = await axios.get(
-          `${baseUrl}/api/specificView/specificDevelopments/${comment?.designerOpportunity_id}`,
+          `${baseUrl}/api/specificView/specificDesigns/${comment?.designerOpportunity_id}`,
         );
         if (!response.data.success) {
           console.error(
@@ -75,14 +73,13 @@ const CommentView = ({ comment }: Props) => {
   async function handleAccept() {
     try {
       const response = await axios.post(`${baseUrl}/api/addMembers`, {
-        userId: comment.user.id, groupId: post?.groupId
-      })
-      if (response.data.success)
-        toast.success("User was added to group chat!")
-      else
-        toast.success("User already added to group chat");
+        userId: comment.user.id,
+        groupId: post?.groupId,
+      });
+      if (response.data.success) toast.success("User was added to group chat!");
+      else toast.success("User already added to group chat");
     } catch (error) {
-      console.log("An error occured : ", error)
+      console.log("An error occured : ", error);
     }
   }
 
@@ -97,18 +94,19 @@ const CommentView = ({ comment }: Props) => {
         />
 
         <div className="flex-1">
-          <h3 onClick={handleDetails} className="text-sm hover:cursor-pointer font-bold text-gray-600">
+          <h3
+            onClick={handleDetails}
+            className="text-sm hover:cursor-pointer font-bold text-gray-600"
+          >
             {comment?.user.fullName}
           </h3>
-          <p className="font-extrabold  text-lg text-black">
+          <p className="font-semibold text-lg text-black">
             {comment?.content}
           </p>
         </div>
 
         <div className="flex space-x-2">
-
-          {userId == post?.user.id ?
-
+          {userId == post?.user.id ? (
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -117,8 +115,8 @@ const CommentView = ({ comment }: Props) => {
               aria-label="Approve"
             >
               Accept
-            </motion.button> : null
-          }
+            </motion.button>
+          ) : null}
         </div>
       </div>
     </div>

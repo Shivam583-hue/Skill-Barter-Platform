@@ -99,7 +99,7 @@ const DevCommentView = ({ comment }: Props) => {
           <h3 onClick={handleDetails} className="text-sm hover:cursor-pointer font-bold text-gray-600">
             {comment?.user.fullName}
           </h3>
-          <p className="font-normal text-lg text-black">
+          <p className="font-semibold text-lg text-black">
             {comment?.content}
           </p>
         </div>

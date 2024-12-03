@@ -1,21 +1,21 @@
-import express, { Request, Response } from "express"
-import { prisma } from "../clientInstance.js"
+import express, { Request, Response } from "express";
+import { prisma } from "../clientInstance.js";
 
 export const getSpecificGroupDetails = (async (req: Request, res: Response) => {
   const groupId = Number(req.params.groupId);
   try {
     const groupDetails = await prisma.group.findUnique({
       where: {
-        groupId
-      }
-    })
+        groupId,
+      },
+    });
     if (!groupDetails) {
       return res.status(404).json({
         success: false,
         error: "Group not found",
       });
     }
-    res.status(200).json({ success: true, data: groupDetails })
+    res.status(200).json({ success: true, data: groupDetails });
   } catch (error) {
     console.error("Error fetching Group Details: ", error);
     res.status(500).json({
@@ -36,18 +36,18 @@ export const getMembersInAGroup = (async (req: Request, res: Response) => {
             id: true,
             fullName: true,
             username: true,
-            profilePic: true
-          }
-        }
-      }
-    })
+            profilePic: true,
+          },
+        },
+      },
+    });
     if (!group) {
       return res.status(404).json({
         success: false,
         error: "Group Members not found",
       });
     }
-    res.status(200).json({ success: true, data: group.members })
+    res.status(200).json({ success: true, data: group.members });
   } catch (error) {
     console.error("Error fetching Group Members: ", error);
     res.status(500).json({
@@ -69,7 +69,7 @@ export const getMessagesInAGroup = (async (req: Request, res: Response) => {
       skip: offset,
       take: limit,
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
 
@@ -85,7 +85,10 @@ export const getMessagesInAGroup = (async (req: Request, res: Response) => {
   }
 }) as express.RequestHandler;
 
-export const groupJoinedbyAuthenticatedUser = (async (req: Request, res: Response) => {
+export const groupJoinedbyAuthenticatedUser = (async (
+  req: Request,
+  res: Response,
+) => {
   const userId = parseInt(req.params.id);
   try {
     const userWithGroups = await prisma.user.findUnique({
@@ -102,7 +105,7 @@ export const groupJoinedbyAuthenticatedUser = (async (req: Request, res: Respons
 
     res.status(200).json({
       success: true,
-      data: userWithGroups.memberOfGroups
+      data: userWithGroups.memberOfGroups,
     });
   } catch (error) {
     console.error("Error fetching user groups: ", error);
@@ -113,7 +116,10 @@ export const groupJoinedbyAuthenticatedUser = (async (req: Request, res: Respons
   }
 }) as express.RequestHandler;
 
-export const groupsCreatedByAuthenticatedUser = (async (req: Request, res: Response) => {
+export const groupsCreatedByAuthenticatedUser = (async (
+  req: Request,
+  res: Response,
+) => {
   const userId = parseInt(req.params.id);
   try {
     const userWithCreatedGroups = await prisma.user.findUnique({
@@ -149,13 +155,13 @@ export const createGroup = (async (req: Request, res: Response) => {
         groupName,
         creatorId: userId,
         members: {
-          connect: { id: userId }
+          connect: { id: userId },
         },
-      }
-    })
+      },
+    });
     res.status(201).json({ success: true, data: group });
   } catch (error) {
-    console.log("Failed to create group chat", error)
+    console.log("Failed to create group chat", error);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 }) as express.RequestHandler;
@@ -173,8 +179,8 @@ export const addMembers = (async (req: Request, res: Response) => {
       where: { groupId },
       data: {
         members: { connect: { id: userId } },
-      }
-    })
+      },
+    });
     res.status(201).json({ success: true, data: response });
   } catch (error) {
     console.error("Error adding members: ", error);
@@ -196,8 +202,8 @@ export const removeMembers = (async (req: Request, res: Response) => {
   try {
     const response = await prisma.group.update({
       where: { groupId },
-      data: { members: { disconnect: { id: userId } } }
-    })
+      data: { members: { disconnect: { id: userId } } },
+    });
     res.status(200).json({
       success: true,
       message: "Member removed successfully.",
@@ -225,15 +231,15 @@ export const deleteGroup = (async (req: Request, res: Response) => {
   try {
     const group = await prisma.group.findFirst({
       where: { groupId, creatorId: userId },
-    })
+    });
     if (!group) {
       return res
         .status(404)
         .json({ success: false, message: "Design Opportunity not found." });
     }
     await prisma.group.delete({
-      where: { groupId }
-    })
+      where: { groupId },
+    });
     res.status(200).json({
       success: true,
       message: "Group deleted successfully.",
@@ -243,4 +249,3 @@ export const deleteGroup = (async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: "Internal server error." });
   }
 }) as express.RequestHandler;
-
