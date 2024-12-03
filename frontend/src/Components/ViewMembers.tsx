@@ -1,11 +1,34 @@
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
+import { baseUrl } from "@/Hooks/useSignup";
+import axios from "axios";
 
-const members = [
-  { id: 1, name: "Alice Johnson", avatar: "/images/alice.jpg", role: "Admin" },
-  { id: 2, name: "Bob Smith", avatar: "/images/bob.jpg", role: "Member" },
-  { id: 3, name: "Charlie Brown", avatar: "/images/charlie.jpg", role: "Member" },
-];
+type User = {
+  id: number,
+  fullName: string;
+  profilePic: string;
+}
+
 
 const ViewMembers = () => {
+
+  const [members, setMembers] = useState<User[]>([])
+  const { groupId } = useParams()
+
+  useEffect(() => {
+    const fetchMember = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/api/groups/members/${groupId}`)
+        setMembers(response.data.data)
+      } catch (error) {
+        console.log("An Error Occured : ", error)
+      }
+    }
+    fetchMember()
+  }, [])
+
+
   return (
     <div className="h-screen flex justify-center items-center bg-gray-800 text-white">
       <div className="w-full max-w-[400px] bg-gray-900 p-6 rounded-lg shadow-md">
@@ -20,12 +43,12 @@ const ViewMembers = () => {
               className="flex items-center p-3 bg-gray-800 rounded-md"
             >
               <img
-                src={member.avatar}
-                alt={`${member.name}'s avatar`}
+                src={member.profilePic}
+                alt={`${member.fullName}'s avatar`}
                 className="w-10 h-10 rounded-full object-cover"
               />
               <div className="ml-3 flex justify-between w-full">
-                <p className="text-sm font-medium">{member.name}</p>
+                <p className="text-sm font-medium">{member.fullName}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-user-x ml-auto">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                   <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />

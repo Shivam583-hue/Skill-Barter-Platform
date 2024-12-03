@@ -37,7 +37,16 @@ export const getMembersInAGroup = ((req, res) => __awaiter(void 0, void 0, void 
     try {
         const group = yield prisma.group.findUnique({
             where: { groupId },
-            include: { members: true }
+            include: {
+                members: {
+                    select: {
+                        id: true,
+                        fullName: true,
+                        username: true,
+                        profilePic: true
+                    }
+                }
+            }
         });
         if (!group) {
             return res.status(404).json({
@@ -159,8 +168,6 @@ export const addMembers = ((req, res) => __awaiter(void 0, void 0, void 0, funct
             error: "User ID and Group ID are required",
         });
     }
-    console.log("User id : ", userId);
-    console.log("Group id: ", groupId);
     try {
         const response = yield prisma.group.update({
             where: { groupId },

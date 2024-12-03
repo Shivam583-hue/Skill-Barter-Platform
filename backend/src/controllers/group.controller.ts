@@ -30,7 +30,16 @@ export const getMembersInAGroup = (async (req: Request, res: Response) => {
   try {
     const group = await prisma.group.findUnique({
       where: { groupId },
-      include: { members: true }
+      include: {
+        members: {
+          select: {
+            id: true,
+            fullName: true,
+            username: true,
+            profilePic: true
+          }
+        }
+      }
     })
     if (!group) {
       return res.status(404).json({

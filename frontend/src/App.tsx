@@ -91,7 +91,7 @@ function App() {
             path="/designer/:designerOpportunity_id"
             element={authUser ? <DesignView /> : <Navigate to="/login" />}
           />
-          <Route path="/groupMembers/" element={authUser ? <ViewMembers /> : <Navigate to="/login" />} />
+          <Route path="/groupMembers/:groupId" element={authUser ? <ViewMembers /> : <Navigate to="/login" />} />
           <Route path="/group/:groupId" element={authUser ? <SpecificChatRoom /> : <Navigate to="/login" />} />
           <Route
             path="/flex"
