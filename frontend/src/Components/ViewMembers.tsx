@@ -6,32 +6,31 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 type User = {
-  id: number,
+  id: number;
   fullName: string;
   profilePic: string;
-}
-
+};
 
 const ViewMembers = () => {
-
-  const [members, setMembers] = useState<User[]>([])
-  const { groupId } = useParams()
+  const [members, setMembers] = useState<User[]>([]);
+  const { groupId } = useParams();
   async function handleDelete(userId: number) {
     if (!groupId) {
       toast.error("Group ID is missing!");
       return;
     }
+    console.log(userId, Number(groupId));
     try {
-      const response = await axios.delete(`${baseUrl}/api/deleteGroup`, {
-        data: {
-          userId,
-          groupId: Number(groupId),
-        },
+      const response = await axios.post(`${baseUrl}/api/removeMembers`, {
+        userId: Number(userId),
+        groupId: Number(groupId),
       });
 
       if (response.data.success) {
         toast.success("Member removed successfully!");
-        setMembers((prevMembers) => prevMembers.filter((member) => member.id !== userId));
+        setMembers((prevMembers) =>
+          prevMembers.filter((member) => member.id !== userId),
+        );
       } else {
         toast.error(response.data.error || "Failed to remove member.");
       }
@@ -40,18 +39,20 @@ const ViewMembers = () => {
       toast.error("An error occurred while removing the member.");
     }
   }
+
   useEffect(() => {
     const fetchMember = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/groups/members/${groupId}`)
-        setMembers(response.data.data)
+        const response = await axios.get(
+          `${baseUrl}/api/groups/members/${groupId}`,
+        );
+        setMembers(response.data.data);
       } catch (error) {
-        console.log("An Error Occured : ", error)
+        console.log("An Error Occured : ", error);
       }
-    }
-    fetchMember()
-  }, [groupId])
-
+    };
+    fetchMember();
+  }, [groupId]);
 
   return (
     <div className="h-screen flex justify-center items-center bg-gray-800 text-white">

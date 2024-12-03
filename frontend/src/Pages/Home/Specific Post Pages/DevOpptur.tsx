@@ -65,7 +65,6 @@ const DevOpptur = () => {
       </div>
       <div className="p-4">
         <input
-          type="number"
           value={groupId}
           onChange={(e) => setGroupId(Number(e.target.value))}
           className="text-3xl text-white font-bold w-full bg-transparent md:w-[900px] focus:outline-none text-mono"

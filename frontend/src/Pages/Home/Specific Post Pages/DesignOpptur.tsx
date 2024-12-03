@@ -18,7 +18,7 @@ const DesignOpptur = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [content, setContent] = useState("");
-  const [groupId, setGroupId] = useState<number>(0)
+  const [groupId, setGroupId] = useState<number>(0);
   const navigate = useNavigate();
   const handleCreate = async () => {
     try {
@@ -62,7 +62,6 @@ const DesignOpptur = () => {
       </div>
       <div className="p-4">
         <input
-          type="number"
           value={groupId}
           onChange={(e) => setGroupId(Number(e.target.value))}
           className="bg-transparent text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"

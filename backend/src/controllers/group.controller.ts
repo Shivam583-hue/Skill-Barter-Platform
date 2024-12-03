@@ -193,6 +193,7 @@ export const addMembers = (async (req: Request, res: Response) => {
 
 export const removeMembers = (async (req: Request, res: Response) => {
   const { userId, groupId } = req.body;
+  console.log(userId, groupId);
   if (!userId || !groupId) {
     return res.status(400).json({
       success: false,
@@ -200,14 +201,29 @@ export const removeMembers = (async (req: Request, res: Response) => {
     });
   }
   try {
-    const response = await prisma.group.update({
+    const group = await prisma.group.findUnique({
       where: { groupId },
-      data: { members: { disconnect: { id: userId } } },
+      include: { members: { where: { id: userId } } }
     });
+
+    if (!group || group.members.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: "User not found in this group",
+      });
+    }
+    await prisma.group.update({
+      where: { groupId },
+      data: {
+        members: {
+          disconnect: [{ id: userId }]
+        }
+      },
+    });
+
     res.status(200).json({
       success: true,
       message: "Member removed successfully.",
-      data: response,
     });
   } catch (error) {
     console.error("Error removing members: ", error);

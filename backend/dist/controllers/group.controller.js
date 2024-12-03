@@ -187,6 +187,7 @@ export const addMembers = ((req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 export const removeMembers = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, groupId } = req.body;
+    console.log(userId, groupId);
     if (!userId || !groupId) {
         return res.status(400).json({
             success: false,
@@ -194,14 +195,27 @@ export const removeMembers = ((req, res) => __awaiter(void 0, void 0, void 0, fu
         });
     }
     try {
-        const response = yield prisma.group.update({
+        const group = yield prisma.group.findUnique({
             where: { groupId },
-            data: { members: { disconnect: { id: userId } } },
+            include: { members: { where: { id: userId } } }
+        });
+        if (!group || group.members.length === 0) {
+            return res.status(404).json({
+                success: false,
+                error: "User not found in this group",
+            });
+        }
+        yield prisma.group.update({
+            where: { groupId },
+            data: {
+                members: {
+                    disconnect: [{ id: userId }]
+                }
+            },
         });
         res.status(200).json({
             success: true,
             message: "Member removed successfully.",
-            data: response,
         });
     }
     catch (error) {
