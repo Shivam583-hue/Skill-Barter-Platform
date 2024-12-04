@@ -1,4 +1,5 @@
 import cors from "cors";
+import http from "http";
 import express from "express";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
@@ -9,10 +10,14 @@ import authenticatedProfileRoutes from "./routes/authenticatedProfile.route.js";
 import specificView from "./routes/specificView.route.js";
 import managingComments from "./routes/managingComments.route.js";
 import getPreviewCardsRoutes from "./routes/getPreviewCards.route.js";
-import groupRoutes from "./routes/group.route.js"
+import groupRoutes from "./routes/group.route.js";
+
+import setupSocketIO from "./socket.js";
 import { Request, Response } from "express";
 
 const app = express();
+const server = http.createServer(app);
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -33,21 +38,22 @@ app.use(
   }),
 );
 
-// Route definitions
 app.use("/api/auth", authRoutes);
 app.use("/api", postButtonRoutes);
 app.use("/api/preview", getPreviewCardsRoutes);
-app.use("/api",groupRoutes);
+app.use("/api", groupRoutes);
 app.use("/api", authenticatedProfileRoutes);
 app.use("/api", authenticatedProfileComponentRoutes);
 app.use("/api/specificView", specificView);
 app.use("/api/comments", managingComments);
-app.use("/api/proposal", proposalRoutes)
+app.use("/api/proposal", proposalRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Server is running");
 });
 
-app.listen(5000, () => {
+setupSocketIO(server);
+
+server.listen(5000, () => {
   console.log("Server is running on port 5000");
 });

@@ -57,31 +57,53 @@ export const getMembersInAGroup = (async (req: Request, res: Response) => {
   }
 }) as express.RequestHandler;
 
+
 export const getMessagesInAGroup = (async (req: Request, res: Response) => {
   const groupId = Number(req.params.groupId);
-
   const limit = parseInt(req.query.limit as string) || 20;
   const offset = parseInt(req.query.offset as string) || 0;
 
   try {
+    const groupExists = await prisma.group.findUnique({
+      where: { groupId },
+    });
+
+    if (!groupExists) {
+      return res.status(404).json({
+        success: false,
+        error: "Group not found",
+      });
+    }
+
     const messages = await prisma.message.findMany({
-      where: { groupId: groupId },
+      where: { groupId },
       skip: offset,
       take: limit,
       orderBy: {
         createdAt: "desc",
       },
+      include: { creator: true },
     });
 
-    if (messages.length === 0) {
-      return res.status(404).json({
-        success: false,
-        error: "Messages not found",
-      });
-    }
-    res.json({ success: true, data: messages });
+    const totalMessages = await prisma.message.count({
+      where: { groupId },
+    });
+
+    res.json({
+      success: true,
+      data: messages,
+      meta: {
+        total: totalMessages,
+        limit,
+        offset,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ success: false, error: "Failed to fetch messages" });
+    console.error("Error fetching messages:", error);
+    res.status(500).json({
+      success: false,
+      error: "Failed to fetch messages",
+    });
   }
 }) as express.RequestHandler;
 
@@ -193,7 +215,6 @@ export const addMembers = (async (req: Request, res: Response) => {
 
 export const removeMembers = (async (req: Request, res: Response) => {
   const { userId, groupId } = req.body;
-  console.log(userId, groupId);
   if (!userId || !groupId) {
     return res.status(400).json({
       success: false,

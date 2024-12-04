@@ -69,24 +69,43 @@ export const getMessagesInAGroup = ((req, res) => __awaiter(void 0, void 0, void
     const limit = parseInt(req.query.limit) || 20;
     const offset = parseInt(req.query.offset) || 0;
     try {
+        const groupExists = yield prisma.group.findUnique({
+            where: { groupId },
+        });
+        if (!groupExists) {
+            return res.status(404).json({
+                success: false,
+                error: "Group not found",
+            });
+        }
         const messages = yield prisma.message.findMany({
-            where: { groupId: groupId },
+            where: { groupId },
             skip: offset,
             take: limit,
             orderBy: {
                 createdAt: "desc",
             },
+            include: { creator: true },
         });
-        if (messages.length === 0) {
-            return res.status(404).json({
-                success: false,
-                error: "Messages not found",
-            });
-        }
-        res.json({ success: true, data: messages });
+        const totalMessages = yield prisma.message.count({
+            where: { groupId },
+        });
+        res.json({
+            success: true,
+            data: messages,
+            meta: {
+                total: totalMessages,
+                limit,
+                offset,
+            },
+        });
     }
     catch (error) {
-        res.status(500).json({ success: false, error: "Failed to fetch messages" });
+        console.error("Error fetching messages:", error);
+        res.status(500).json({
+            success: false,
+            error: "Failed to fetch messages",
+        });
     }
 }));
 export const groupJoinedbyAuthenticatedUser = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -187,7 +206,6 @@ export const addMembers = ((req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 export const removeMembers = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, groupId } = req.body;
-    console.log(userId, groupId);
     if (!userId || !groupId) {
         return res.status(400).json({
             success: false,

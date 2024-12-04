@@ -19,7 +19,6 @@ const ViewMembers = () => {
       toast.error("Group ID is missing!");
       return;
     }
-    console.log(userId, Number(groupId));
     try {
       const response = await axios.post(`${baseUrl}/api/removeMembers`, {
         userId: Number(userId),
