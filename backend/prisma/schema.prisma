@@ -55,7 +55,7 @@ model Message {
   messageCreatorId Int
   groupId          Int
   creator          User     @relation("UserMessages", fields: [messageCreatorId], references: [id]) // Reverse of "messages" in User model
-  group            Group    @relation("GroupMessages", fields: [groupId], references: [groupId])
+  group            Group    @relation("GroupMessages", fields: [groupId], references: [groupId],onDelete:Cascade)
   createdAt        DateTime @default(now())
 }
 
