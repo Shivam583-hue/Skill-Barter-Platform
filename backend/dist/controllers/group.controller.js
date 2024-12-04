@@ -65,9 +65,10 @@ export const getMembersInAGroup = ((req, res) => __awaiter(void 0, void 0, void 
     }
 }));
 export const getMessagesInAGroup = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const groupId = Number(req.params.groupId);
     const limit = parseInt(req.query.limit) || 20;
-    const offset = parseInt(req.query.offset) || 0;
+    const cursor = req.query.cursor;
     try {
         const groupExists = yield prisma.group.findUnique({
             where: { groupId },
@@ -79,24 +80,20 @@ export const getMessagesInAGroup = ((req, res) => __awaiter(void 0, void 0, void
             });
         }
         const messages = yield prisma.message.findMany({
-            where: { groupId },
-            skip: offset,
+            where: Object.assign({ groupId }, (cursor && { createdAt: { lt: new Date(cursor) } })),
             take: limit,
             orderBy: {
                 createdAt: "desc",
             },
             include: { creator: true },
         });
-        const totalMessages = yield prisma.message.count({
-            where: { groupId },
-        });
+        const hasMore = messages.length === limit;
         res.json({
             success: true,
             data: messages,
             meta: {
-                total: totalMessages,
-                limit,
-                offset,
+                hasMore,
+                nextCursor: hasMore ? (_a = messages[messages.length - 1]) === null || _a === void 0 ? void 0 : _a.createdAt : null,
             },
         });
     }

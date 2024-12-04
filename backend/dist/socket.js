@@ -30,15 +30,14 @@ const setupSocketIO = (server) => {
             try {
                 const { error, value } = messageSchema.validate(data);
                 if (error) {
-                    console.error("Invalid message data:", error.details);
+                    socket.emit("messageError", error.details);
                     return;
                 }
                 const isAuthorized = yield verifyUser(value.messageCreatorId, value.groupId);
                 if (!isAuthorized) {
-                    console.error("User not authorized to send to this group.");
+                    socket.emit("messageError", "Not authorized to send messages to this group");
                     return;
                 }
-                console.log("Message received:", value);
                 let message = yield saveMessageToDatabase(value);
                 if (!message.creator) {
                     const creator = yield getUserById(message.messageCreatorId);
@@ -46,7 +45,7 @@ const setupSocketIO = (server) => {
                         message = Object.assign(Object.assign({}, message), { creator });
                     }
                     else {
-                        console.error("Creator not found.");
+                        socket.emit("messageError", "Creator not found");
                         return;
                     }
                 }
@@ -54,11 +53,23 @@ const setupSocketIO = (server) => {
             }
             catch (error) {
                 console.error("Error handling sendMessage event:", error);
+                socket.emit("messageError", "Failed to send message");
             }
         }));
         socket.on("joinGroup", (groupId) => __awaiter(void 0, void 0, void 0, function* () {
-            socket.join(groupId.toString());
-            console.log(`User ${socket.id} joined group ${groupId}`);
+            try {
+                const room = groupId.toString();
+                yield socket.join(room);
+                console.log(`User ${socket.id} joined group ${groupId}`);
+            }
+            catch (error) {
+                console.error(`Error joining group ${groupId}:`, error);
+            }
+        }));
+        socket.on("leaveGroup", (groupId) => __awaiter(void 0, void 0, void 0, function* () {
+            const room = groupId.toString();
+            socket.leave(room);
+            console.log(`User ${socket.id} left group ${groupId}`);
         }));
         socket.on("disconnect", () => {
             console.log("A user disconnected:", socket.id);

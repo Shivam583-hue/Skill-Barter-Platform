@@ -58,10 +58,11 @@ export const getMembersInAGroup = (async (req: Request, res: Response) => {
 }) as express.RequestHandler;
 
 
+
 export const getMessagesInAGroup = (async (req: Request, res: Response) => {
   const groupId = Number(req.params.groupId);
   const limit = parseInt(req.query.limit as string) || 20;
-  const offset = parseInt(req.query.offset as string) || 0;
+  const cursor = req.query.cursor as string | null;
 
   try {
     const groupExists = await prisma.group.findUnique({
@@ -76,8 +77,10 @@ export const getMessagesInAGroup = (async (req: Request, res: Response) => {
     }
 
     const messages = await prisma.message.findMany({
-      where: { groupId },
-      skip: offset,
+      where: {
+        groupId,
+        ...(cursor && { createdAt: { lt: new Date(cursor) } }),
+      },
       take: limit,
       orderBy: {
         createdAt: "desc",
@@ -85,17 +88,14 @@ export const getMessagesInAGroup = (async (req: Request, res: Response) => {
       include: { creator: true },
     });
 
-    const totalMessages = await prisma.message.count({
-      where: { groupId },
-    });
+    const hasMore = messages.length === limit;
 
     res.json({
       success: true,
       data: messages,
       meta: {
-        total: totalMessages,
-        limit,
-        offset,
+        hasMore,
+        nextCursor: hasMore ? messages[messages.length - 1]?.createdAt : null,
       },
     });
   } catch (error) {

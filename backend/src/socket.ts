@@ -39,41 +39,49 @@ const setupSocketIO = (server: HttpServer) => {
       try {
         const { error, value } = messageSchema.validate(data);
         if (error) {
-          console.error("Invalid message data:", error.details);
+          socket.emit("messageError", error.details);
           return;
         }
 
-        const isAuthorized = await verifyUser(
-          value.messageCreatorId,
-          value.groupId,
-        );
+        const isAuthorized = await verifyUser(value.messageCreatorId, value.groupId);
         if (!isAuthorized) {
-          console.error("User not authorized to send to this group.");
+          socket.emit("messageError", "Not authorized to send messages to this group");
           return;
         }
 
-        console.log("Message received:", value);
         let message = await saveMessageToDatabase(value);
-
         if (!message.creator) {
           const creator = await getUserById(message.messageCreatorId);
           if (creator) {
             message = { ...message, creator };
           } else {
-            console.error("Creator not found.");
+            socket.emit("messageError", "Creator not found");
             return;
           }
         }
 
+        
         io.to(value.groupId.toString()).emit("newMessage", message);
       } catch (error) {
         console.error("Error handling sendMessage event:", error);
+        socket.emit("messageError", "Failed to send message");
       }
     });
 
     socket.on("joinGroup", async (groupId: number) => {
-      socket.join(groupId.toString());
-      console.log(`User ${socket.id} joined group ${groupId}`);
+      try {
+        const room = groupId.toString();
+        await socket.join(room);
+        console.log(`User ${socket.id} joined group ${groupId}`);
+      } catch (error) {
+        console.error(`Error joining group ${groupId}:`, error);
+      }
+    });
+
+    socket.on("leaveGroup", async (groupId: number) => {
+      const room = groupId.toString();
+      socket.leave(room);
+      console.log(`User ${socket.id} left group ${groupId}`);
     });
 
     socket.on("disconnect", () => {
