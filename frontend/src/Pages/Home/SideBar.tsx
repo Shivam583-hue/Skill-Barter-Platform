@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../../Assests/logo.png";
 import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -447,14 +447,14 @@ const SideBar = () => {
               Sign Out
             </motion.button>
             <footer className="absolute bottom-8">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              onClick={handlePost}
-              whileTap={{ scale: 0.98 }}
-              className="mt-5 bg-cyan-600 text-white w-40 h-16 rounded-full font-sans flex pt-1 pl-12 font-semibold text-[25px] hover:bg-cyan-700 "
-            >
-              <h1 className="pl-1 text-3xl pt-[8px]">Post</h1>
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                onClick={handlePost}
+                whileTap={{ scale: 0.98 }}
+                className="mt-5 bg-cyan-600 text-white w-40 h-16 rounded-full font-sans flex pt-1 pl-12 font-semibold text-[25px] hover:bg-cyan-700 "
+              >
+                <h1 className="pl-1 text-3xl pt-[8px]">Post</h1>
+              </motion.button>
             </footer>
           </div>
         </div>
