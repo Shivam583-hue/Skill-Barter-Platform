@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "@/config";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = API_BASE_URL;
 
 export interface User {
   id: number;

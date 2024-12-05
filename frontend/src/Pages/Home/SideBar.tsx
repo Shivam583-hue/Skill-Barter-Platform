@@ -1,4 +1,4 @@
-import logo from "../../Assests/logo.png";
+import logo from "../../Assets/logo.png";
 import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";

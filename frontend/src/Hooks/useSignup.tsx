@@ -2,8 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext.tsx";
+import { API_BASE_URL } from "@/config.ts";
 
-export const baseUrl = "http://localhost:5000";
+export const baseUrl = API_BASE_URL;
 
 interface SignUpParams {
   fullName: string;
