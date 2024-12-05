@@ -21,6 +21,7 @@ const SpecificChatRoom = () => {
   const userId = authUser?.id;
 
   const [groupName, setGroupName] = useState("");
+  const [groupCreator,setGroupCreator] = useState<number>()
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -28,6 +29,7 @@ const SpecificChatRoom = () => {
       try {
         const response = await axios.get(`${baseUrl}/api/groups/${groupId}`);
         setGroupName(response.data.data.groupName);
+        setGroupCreator(response.data.data.creatorId)
       } catch (error) {
         toast.error("An error occured, please try againg later.");
         console.log("An error occured", error);
@@ -48,7 +50,7 @@ const SpecificChatRoom = () => {
             <h1 className="pl-4 text-2xl pt-2 text-white font-semibold">
               {groupName}
             </h1>
-            <motion.button
+            {authUser?.id === groupCreator ? <motion.button
               onClick={handleRedirect}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 1 }}
@@ -77,7 +79,7 @@ const SpecificChatRoom = () => {
                 </svg>
               </span>
               View Members
-            </motion.button>
+            </motion.button> : null}
           </div>
 
           <div className="divider border-t-2 border-gray-500 shadow-md"></div>
