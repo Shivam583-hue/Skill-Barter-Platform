@@ -1,13 +1,5 @@
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
-
-interface User {
-  id: number;
-  fullName: string;
-  username: string;
-  email: string;
-}
 
 interface Group {
   groupId: number;
@@ -15,21 +7,22 @@ interface Group {
 }
 
 interface GroupProps {
-  Group: Group
+  Group: Group;
 }
 
 const AllChatRoomsComponent = ({ Group }: GroupProps) => {
-
   const navigate = useNavigate();
 
   function handleRedirect() {
-    navigate(`/group/${Group.groupId}`)
+    navigate(`/group/${Group.groupId}`);
   }
   return (
     <div className="bg-cyan-600 rounded-3xl p-6 shadow-2xl hover:shadow-3xl transition-all duration-300 w-full max-w-[800px] mx-auto my-4 transform hover:-translate-y-2">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <h3 className="text-black font-bold text-xl tracking-wide">{Group.groupName}</h3>
+          <h3 className="text-black font-bold text-xl tracking-wide">
+            {Group.groupName}
+          </h3>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -42,6 +35,6 @@ const AllChatRoomsComponent = ({ Group }: GroupProps) => {
       </div>
     </div>
   );
-}
+};
 
-export default AllChatRoomsComponent
+export default AllChatRoomsComponent;

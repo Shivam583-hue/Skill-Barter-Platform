@@ -1,10 +1,9 @@
-import { useAuthContext } from "../../../context/AuthContext.tsx"
+import { useAuthContext } from "../../../context/AuthContext.tsx";
 import toast from "react-hot-toast";
-import axios from "axios"
-import { baseUrl } from "../../../Hooks/useSignup.tsx"
-import SubChatComponent from "../../../Components/SubProfilePageComponents/SubChatComponent"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { baseUrl } from "../../../Hooks/useSignup.tsx";
+import SubChatComponent from "../../../Components/SubProfilePageComponents/SubChatComponent";
+import { useEffect, useState } from "react";
 
 interface User {
   id: number;
@@ -19,7 +18,6 @@ interface Group {
 }
 
 const YourChatrooms = () => {
-
   const { authUser } = useAuthContext() as { authUser: User | null };
 
   const [groups, setGroups] = useState<Group[]>([]);
@@ -27,16 +25,18 @@ const YourChatrooms = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/groupsCreatedByAuthenticatedUser/${authUser?.id}`)
-        setGroups(response.data.data || [])
+        const response = await axios.get(
+          `${baseUrl}/api/groupsCreatedByAuthenticatedUser/${authUser?.id}`,
+        );
+        setGroups(response.data.data || []);
       } catch (error) {
-        toast.error("Server is down, please try again later")
-        console.error("Failed to fetch joined groups", error)
+        toast.error("Server is down, please try again later");
+        console.error("Failed to fetch joined groups", error);
       }
-    }
+    };
 
-    fetch()
-  }, [])
+    fetch();
+  }, [authUser?.id]);
 
   return (
     <div>
@@ -47,9 +47,8 @@ const YourChatrooms = () => {
           <SubChatComponent key={GroupChat.groupId} Group={GroupChat} />
         ))
       )}
-
     </div>
-  )
-}
+  );
+};
 
-export default YourChatrooms
+export default YourChatrooms;
