@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import socket from "../../socket.js";
 import axios from "axios";
@@ -24,6 +24,7 @@ const MessageView = ({ groupId }: { groupId: number }) => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
   const limit = 20;
 
   const loadMessages = async (initialLoad = false) => {
@@ -66,8 +67,18 @@ const MessageView = ({ groupId }: { groupId: number }) => {
     };
   }, [groupId]);
 
+  useEffect(() => {
+    if (bottomRef.current) {
+      console.log("Scrolling to the bottom...");
+      setTimeout(() => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    }
+  }, [messages]);
+
   return (
-    <div className="message-container">
+    <div className="">
+      <div className="message-container">
       <button
         onClick={() => loadMessages()}
         disabled={loading || !hasMore}
@@ -109,7 +120,9 @@ const MessageView = ({ groupId }: { groupId: number }) => {
             </div>
           </div>
         ))}
+        <div ref={bottomRef} />
       </div>
+    </div>
     </div>
   );
 };

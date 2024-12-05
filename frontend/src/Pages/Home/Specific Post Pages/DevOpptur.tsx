@@ -18,7 +18,7 @@ const DevOpptur = () => {
   const userid = authUser?.id;
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [groupId, setGroupId] = useState<number>(0)
+  const [groupId, setGroupId] = useState<number>(0);
   const navigate = useNavigate();
   const [content, setContent] = useState("");
 
@@ -47,7 +47,7 @@ const DevOpptur = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="w-full h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px] overflow-hidden">
         <img
           className="w-full h-full object-cover object-center"

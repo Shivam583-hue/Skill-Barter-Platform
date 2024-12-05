@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 import { baseUrl } from "../Hooks/useSignup";
 import { useAuthContext } from "../context/AuthContext";
 import { useState, useEffect } from "react";
@@ -41,8 +42,7 @@ const AuthenticatedProfileCard = () => {
         profilePic: pfp,
       },
     );
-    //   if(response.data.success)
-    console.log(response);
+    if (response.data.success) toast.success("Profile Updated Successfully!");
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const AuthenticatedProfileCard = () => {
   }, [id]);
 
   return isEditing ? (
-    <div>
+    <div className="w-[280px] sm:w-full">
       <div className="flex flex-col items-center min-h-screen p-4 md:p-6">
         <div className="bg-black rounded-3xl shadow-lg p-6 w-full max-w-2xl space-y-6">
           <h2 className="text-xl sm:text-2xl font-semibold text-gray-600 text-center mb-6">
@@ -132,28 +132,34 @@ const AuthenticatedProfileCard = () => {
       </div>
     </div>
   ) : (
-    <div className="bg-black rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-[500px] md:w-[900px] mx-auto my-4">
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="flex flex-col items-center md:items-start">
+    <div className="bg-black rounded-3xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full max-w-4xl mx-auto my-4">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+        {/* Profile Image and Name Section */}
+        <div className="flex flex-col items-center lg:items-start shrink-0">
           <img
             src={profie?.profilePic}
             alt={profie?.fullName}
-            className="w-32 h-32 rounded-full object-cover border-4 border-cyan-500"
+            className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-cyan-500"
           />
-          <h2 className="text-2xl font-bold md:pl-4 text-cyan-500 mt-4">
+          <h2 className="text-xl sm:text-2xl font-bold lg:pl-4 text-cyan-500 mt-4 text-center lg:text-left">
             {profie?.fullName}
           </h2>
-          <p className="text-gray-400 md:pl-4">@{profie?.username}</p>
+          <p className="text-gray-400 lg:pl-4 text-center lg:text-left">
+            @{profie?.username}
+          </p>
         </div>
 
-        <div className="flex-1 space-y-4">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-300">Bio</h3>
+        {/* Profile Details Section */}
+        <div className="flex-1 space-y-4 w-full">
+          {/* Bio Section */}
+          <div className="w-full">
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-300">Bio</h3>
             <p className="text-gray-400">{profie?.bio}</p>
           </div>
 
+          {/* Portfolio Section */}
           <div>
-            <h3 className="text-lg flex font-semibold text-gray-300">
+            <h3 className="text-base sm:text-lg flex font-semibold text-gray-300">
               Portfolio
               <span className="pt-0.5 pl-0.5">
                 <svg
@@ -171,15 +177,16 @@ const AuthenticatedProfileCard = () => {
               href={profie?.portfolio}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-500 hover:text-cyan-400 transition-colors"
+              className="text-cyan-500 hover:text-cyan-400 transition-colors break-all"
             >
               {profie?.portfolio}
             </a>
           </div>
 
-          <div className="flex">
-            <h3 className="text-sm font-semibold flex text-gray-300">
-              <span className="pt-0.5">
+          {/* Joined Date Section */}
+          <div className="flex items-center">
+            <h3 className="text-xs sm:text-sm font-semibold flex text-gray-300">
+              <span className="pt-0.5 mr-1">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="16px"
@@ -192,17 +199,18 @@ const AuthenticatedProfileCard = () => {
               </span>
               Joined
             </h3>
-            <p className="text-gray-300 text-sm pl-1">
-              <span></span>
+            <p className="text-gray-300 text-xs sm:text-sm pl-1">
               {profie?.createdAt}
             </p>
           </div>
+
+          {/* Edit Button Section */}
           <div>
             <motion.button
               whileHover={{ scale: 1.05 }}
               onClick={() => setIsEditing(true)}
               whileTap={{ scale: 0.98 }}
-              className="bg-gray-500 flex hover:bg-gray-700  rounded-2xl px-4  text-black font-bold py-1"
+              className="bg-gray-500 flex hover:bg-gray-700 rounded-2xl px-4 py-1 text-black font-bold"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -213,13 +221,12 @@ const AuthenticatedProfileCard = () => {
               >
                 <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
               </svg>
-              <h1 className="pl-1 text-lg">Edit</h1>
+              <span className="pl-1 text-base sm:text-lg">Edit</span>
             </motion.button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
 };
 
 export default AuthenticatedProfileCard;

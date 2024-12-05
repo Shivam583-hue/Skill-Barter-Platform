@@ -35,24 +35,11 @@ import DesignView from "./Pages/Home/Specific View Pages/DesignView.tsx";
 import FlexView from "./Pages/Home/Specific View Pages/FlexView.tsx";
 import DSAview from "./Pages/Home/Specific View Pages/DSAview.tsx";
 
-// function App() {
-
-//   const {authUser} = useAuthContext()
-
-//   return (
-//     <div className="p-4 h-screen flex items-center bg-[#121212] justify-center">
-//       <Routes>
-//         <Route path='/' element={authUser ? <Home/>:<Navigate to="/login"/>} />
-//       </Routes>
-//     </div>
-//   )
-// }
-
 function App() {
   const { authUser } = useAuthContext();
 
   return (
-    <div className="bg-[#1c232b] h-max w-full">
+    <div className="bg-[#121212] h-max w-full">
       <Routes>
         <Route
           path="/login"

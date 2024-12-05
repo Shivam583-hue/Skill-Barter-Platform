@@ -40,17 +40,18 @@ const PostOptions = () => {
   };
 
   return (
-    <div className="flex justify-center items-center pt-32">
-      <div className="bg-[#1E1E1E] rounded-[50px]  p-10 w-[700px] h-full">
+    <div className="w-full h-screen">
+      <div className="flex justify-center items-center pt-32">
+      <div className="bg-[#1E1E1E] rounded-[50px]  p-10 w-[280px] sm:w-[700px] h-full">
         <div>
-          <h1 className="text-cyan-500 text-[30px] font-bold ">
+          <h1 className="text-cyan-500 text-xl sm:text-[30px] font-bold ">
             What would you like to post?
           </h1>
         </div>
         <div>
           <FormGroup className="flex flex-col mt-5">
             <FormControlLabel
-              className="text-gray-300 text-[20px] font-semibold font-mono"
+              className="text-gray-300 pb-3 sm:pb-0  pb-3 sm text-[20px] font-semibold font-mono"
               control={
                 <Checkbox
                   checked={designer}
@@ -60,7 +61,7 @@ const PostOptions = () => {
               label="Designer Opportunity"
             />
             <FormControlLabel
-              className="text-gray-300 text-[20px] font-semibold font-mono"
+              className="text-gray-300 pb-3 sm:pb-0  text-[20px] font-semibold font-mono"
               control={
                 <Checkbox
                   checked={developer}
@@ -70,7 +71,7 @@ const PostOptions = () => {
               label="Developer Opportunity"
             />
             <FormControlLabel
-              className="text-gray-300 text-[20px] font-semibold font-mono"
+              className="text-gray-300 pb-3 sm:pb-0  text-[20px] font-semibold font-mono"
               control={
                 <Checkbox
                   checked={dsa}
@@ -80,7 +81,7 @@ const PostOptions = () => {
               label="DSA stuff"
             />
             <FormControlLabel
-              className="text-gray-300 text-[20px] font-semibold font-mono"
+              className="text-gray-300 pb-3 sm:pb-0  text-[20px] font-semibold font-mono"
               control={
                 <Checkbox
                   checked={flex}
@@ -90,7 +91,7 @@ const PostOptions = () => {
               label="Flex Accomplishments"
             />
             <FormControlLabel
-              className="text-gray-300 text-[20px] font-semibold font-mono"
+              className="text-gray-300 pb-3 sm:pb-0  text-[20px] font-semibold font-mono"
               control={
                 <Checkbox
                   checked={job}
@@ -112,6 +113,7 @@ const PostOptions = () => {
           </motion.button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

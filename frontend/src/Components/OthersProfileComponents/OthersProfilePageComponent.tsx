@@ -6,7 +6,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/Components/ui/dialog";
 import { baseUrl } from "../../Hooks/useSignup";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -36,14 +36,14 @@ interface Profile {
 const OthersProfilePageComponent = () => {
   const { authUser } = useAuthContext() as { authUser: User | null };
 
-  const senderId = authUser?.id
+  const senderId = authUser?.id;
   const { id } = useParams();
 
   const [profie, setProfie] = useState<Profile | null>(null);
-  const [toggleProposal, setToggleProposal] = useState(false)
+  const [toggleProposal, setToggleProposal] = useState(false);
 
-  const [content, setContent] = useState("")
-  const [groupId, setGroupId] = useState<number>(0)
+  const [content, setContent] = useState("");
+  const [groupId, setGroupId] = useState<number>(0);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -59,27 +59,29 @@ const OthersProfilePageComponent = () => {
     fetchProfile();
   }, [id]);
 
-
   const handleProposalSendButton = async () => {
     try {
-      const response = await axios.post(`${baseUrl}/api/proposal/sendProposal`, {
-        receiverId: id,
-        senderId,
-        content,
-        groupId
-      })
+      const response = await axios.post(
+        `${baseUrl}/api/proposal/sendProposal`,
+        {
+          receiverId: id,
+          senderId,
+          content,
+          groupId,
+        },
+      );
       if (response.data.success) {
         toast.success("Proposal sent successfully! ");
-        setToggleProposal(false)
+        setToggleProposal(false);
       } else {
-        console.error("Error Occured : ", response.data)
-        console.log(content, groupId, senderId, id)
+        console.error("Error Occured : ", response.data);
+        console.log(content, groupId, senderId, id);
       }
     } catch (error) {
       console.error("Error sending proposal:", error);
       toast.error("Failed to send proposal, please try again later.");
     }
-  }
+  };
 
   return (
     <div className="bg-black rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-[500px] md:w-[900px] mx-auto my-4">
@@ -173,22 +175,35 @@ const OthersProfilePageComponent = () => {
                 </DialogHeader>
                 <div>
                   <label className="text-gray-300 text-sm">MESSAGE</label>
-                  <textarea value={content} onChange={(e) => setContent(e.target.value)} className="text-gray-400 w-full bg-black resize-none outline-none border-none" placeholder="Share the specifics of your proposal..." />
+                  <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="text-gray-400 w-full bg-black resize-none outline-none border-none"
+                    placeholder="Share the specifics of your proposal..."
+                  />
                   <label className="text-gray-300 text-sm">GROUP ID </label>
-                  <input value={groupId} onChange={(e) => setGroupId(Number(e.target.value))} className="text-gray-400 w-full bg-black outline-none border-none" placeholder="Specify the group ID for the expected join..." />
+                  <input
+                    value={groupId}
+                    onChange={(e) => setGroupId(Number(e.target.value))}
+                    className="text-gray-400 w-full bg-black outline-none border-none"
+                    placeholder="Specify the group ID for the expected join..."
+                  />
                 </div>
                 <DialogFooter>
-                  <motion.button whileHover={{ scale: 1.1 }}
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-
                     className="bg-gray-500 rounded-2xl px-4 py-2 text-white hover:bg-gray-700"
                     onClick={() => setToggleProposal(false)}
                   >
                     Cancel
                   </motion.button>
-                  <motion.button whileHover={{ scale: 1.1 }}
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={handleProposalSendButton} className="bg-cyan-500 rounded-2xl px-4 py-2 text-white hover:bg-cyan-600">
+                    onClick={handleProposalSendButton}
+                    className="bg-cyan-500 rounded-2xl px-4 py-2 text-white hover:bg-cyan-600"
+                  >
                     Send
                   </motion.button>
                 </DialogFooter>

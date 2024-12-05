@@ -42,7 +42,7 @@ const FlexPost = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen">
       {/* Image Container */}
       <div className="w-full h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px] overflow-hidden">
         <img
@@ -56,7 +56,7 @@ const FlexPost = () => {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="text-3xl font-bold w-full md:w-[900px] focus:outline-none text-mono"
+          className="text-3xl font-bold w-full md:w-[900px] text-white focus:outline-none text-mono"
           placeholder="Title goes here."
         />
       </div>
@@ -65,7 +65,7 @@ const FlexPost = () => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none text-white p-2 rounded-md focus:outline-none "
           placeholder="Description goes here."
         />
       </div>
@@ -74,7 +74,7 @@ const FlexPost = () => {
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none text-white p-2 rounded-md focus:outline-none "
           placeholder="Details go here."
         />
       </div>

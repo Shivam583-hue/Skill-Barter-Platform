@@ -35,7 +35,7 @@ const FlexPage = () => {
   return (
     <div className="flex flex-col mt-5 items-center h-screen">
       <div>
-        <h1 className="bg-gradient-to-r text-shadow-lg from-cyan-500  to-blue-400 text-transparent text-bold bg-clip-text text-[40px] font-bold ">
+        <h1 className="bg-gradient-to-r text-shadow-lg from-cyan-500  to-blue-400 text-transparent text-bold bg-clip-text text-xl sm:text-[40px] font-bold ">
           Flex your accomplishments{" "}
         </h1>
         <div className="divider"></div>

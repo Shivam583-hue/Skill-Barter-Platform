@@ -32,7 +32,9 @@ const JobPageComponent = ({ opportunity }: Props) => {
     <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 max-w-4xl w-full sm:w-[500px] md:w-[800px] mx-auto my-4">
       <div className="flex flex-col space-y-4">
         <div className="flex justify-between items-start">
-          <h2 className="text-3xl font-bold text-cyan-500">{title}</h2>
+          <h2 className="sm:text-3xl text-xl font-bold text-cyan-500">
+            {title}
+          </h2>
           <span className="text-blue-500 text-xl pt-2 font-semibold">
             {salary}
           </span>
@@ -80,7 +82,7 @@ const JobPageComponent = ({ opportunity }: Props) => {
           </div>
         </div>
 
-        <p className="text-gray-300 mt-2 font-semibold text-lg font-serif">
+        <p className="text-gray-300 mt-2 font-semibold sm:text-lg text-md">
           {description}
         </p>
 

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import useLogin from "../../Hooks/useLogin.tsx";
 
 const Login = () => {
-  const [email, setEmail] = useState<String>();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
 
   const { login, loading } = useLogin();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -15,7 +15,8 @@ const Login = () => {
   }
 
   return (
-    <motion.div
+    <div className="bg-black w-screen h-screen">
+      <motion.div
       initial={{ opacity: 1, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
@@ -49,7 +50,7 @@ const Login = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e: any) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 bg-[#1b1d36] bg-opacity-50 rounded-lg border border-gray-700 focus:border-cyan-600 focus:ring-2 focus:ring-cyan-600 text-cyan-600:: placeholder-gray-400 transition duration-200 font-extrabold font-mono"
+                className="w-full pl-10 pr-3 py-2 bg-[#1b1d36] bg-opacity-50 rounded-lg border border-gray-700 focus:border-cyan-600 focus:ring-2 focus:ring-cyan-600 text-cyan-600 placeholder-gray-400 transition duration-200 font-extrabold font-mono"
               />
             </div>
           </div>
@@ -75,6 +76,7 @@ const Login = () => {
         </form>
       </div>
     </motion.div>
+    </div>
   );
 };
 

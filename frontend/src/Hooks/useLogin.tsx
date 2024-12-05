@@ -7,7 +7,7 @@ const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string|undefined, password: string|undefined) => {
     const success = handleInputErrors(email, password);
     if (!success) return;
     setLoading(true);
@@ -36,7 +36,7 @@ const useLogin = () => {
 };
 export default useLogin;
 
-function handleInputErrors(email: string, password: string) {
+function handleInputErrors(email: string|undefined, password: string|undefined) {
   if (!email || !password) {
     toast.error("Please fill in all fields");
     return false;

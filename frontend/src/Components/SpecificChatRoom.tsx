@@ -42,7 +42,8 @@ const SpecificChatRoom = () => {
   }
 
   return (
-    <div className="flex justify-center items-center flex-col h-screen ">
+    <div className="w-full">
+      <div className="flex justify-center items-center flex-col h-screen ">
       <header className="sticky top-0 w-full sm:w-[500px] md:w-[800px] py-4">
         <div className="flex justify-between">
           <h1 className="pl-4 text-2xl pt-2 text-white font-semibold">
@@ -52,7 +53,7 @@ const SpecificChatRoom = () => {
             onClick={handleRedirect}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 1 }}
-            className="flex rounded-xl text-black hover:bg-gray-300 bg-white px-3 py-2"
+            className="flex rounded-xl text-black hover:bg-gray-300 bg-white px-1 sm:px-3 py-2"
           >
             <span className="pr-2">
               <svg
@@ -90,6 +91,7 @@ const SpecificChatRoom = () => {
       <footer className="w-full  py-4 px-3 sm:px-0">
         <Input groupId={Number(groupId)} messageCreatorId={userId} />
       </footer>
+    </div>
     </div>
   );
 };

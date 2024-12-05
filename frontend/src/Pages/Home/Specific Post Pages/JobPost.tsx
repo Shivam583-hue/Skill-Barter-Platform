@@ -52,7 +52,7 @@ const JobPost = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen">
       {/* Image Container */}
       <div className="w-full h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px] overflow-hidden">
         <img
@@ -61,30 +61,29 @@ const JobPost = () => {
           alt="Notion Cover"
         />
       </div>
-      {/* Title Container */}
       <div className="p-4">
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="text-3xl font-bold w-full md:w-[900px] focus:outline-none text-mono"
+          className="text-3xl text-white font-bold w-full md:w-[900px] focus:outline-none text-mono"
           placeholder="Job title goes here."
         />
       </div>
-      {/* Description Container */}
       <div className="p-4">
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full h-24 sm:h-32 md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
+          className="w-full h-24 sm:h-32 text-white md:h-40 lg:h-48 resize-none p-2 rounded-md focus:outline-none "
           placeholder="Job description goes here."
         />
       </div>
       <div className="p-4">
+        <label className="text-sm text-gray-300">Apply Link below</label>
         <input
           value={link}
           onChange={(e) => setLink(e.target.value)}
           type="text"
-          className="w-full h-12 sm:h-16 md:h-20 lg:h-24 p-2 rounded-md focus:outline-none"
+          className="w-full text-white h-12 sm:h-16 md:h-20 lg:h-24 p-2 rounded-md focus:outline-none"
           placeholder="Apply Link"
         />
       </div>
@@ -93,7 +92,7 @@ const JobPost = () => {
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
           type="text"
-          className="w-full h-12 sm:h-16 md:h-20 lg:h-24 p-2 rounded-md focus:outline-none"
+          className="w-full h-12 sm:h-16 text-white md:h-20 lg:h-24 p-2 rounded-md focus:outline-none"
           placeholder="Salary Estimate"
         />
       </div>
@@ -102,7 +101,7 @@ const JobPost = () => {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           type="text"
-          className="w-full h-12 sm:h-16 md:h-20 lg:h-24 p-2 rounded-md focus:outline-none"
+          className="w-full h-12 sm:h-16 md:h-20 lg:h-24 text-white p-2 rounded-md focus:outline-none"
           placeholder="Location"
         />
       </div>
@@ -111,7 +110,7 @@ const JobPost = () => {
           value={company}
           onChange={(e) => setCompany(e.target.value)}
           type="text"
-          className="w-full h-12 sm:h-16 md:h-20 lg:h-24 p-2 rounded-md focus:outline-none"
+          className="w-full h-12 sm:h-16 md:h-20 lg:h-24 p-2 rounded-md text-white focus:outline-none"
           placeholder="Company Name"
         />
       </div>

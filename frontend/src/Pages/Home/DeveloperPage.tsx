@@ -38,7 +38,7 @@ const DeveloperPage = () => {
   return (
     <div className="flex flex-col mt-5 items-center h-screen">
       <div className="mb-5">
-        <h1 className="bg-gradient-to-r text-shadow-lg from-cyan-500  to-blue-400 text-transparent text-bold bg-clip-text text-[40px] font-bold ">
+        <h1 className="bg-gradient-to-r text-shadow-lg from-cyan-500  to-blue-400 text-transparent text-bold bg-clip-text text-xl sm:text-[40px] font-bold ">
           Collboration Opportunities for developers{" "}
         </h1>
         <div className="divider"></div>

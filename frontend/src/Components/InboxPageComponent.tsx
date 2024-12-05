@@ -52,7 +52,7 @@ const InboxPageComponent = ({ proposal }: Props) => {
   }
 
   return (
-    <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-full sm:w-[500px] md:w-[800px] mx-auto my-4">
+    <div className="bg-[#232223] rounded-3xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 w-[280px] sm:w-[500px] md:w-[800px] mx-auto my-4">
       <div className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -68,7 +68,7 @@ const InboxPageComponent = ({ proposal }: Props) => {
         </div>
 
         <div className="flex justify-end space-x-4">
-          <motion.button whileHover={{ scale: 1.07 }} className="hover:bg-[#4A5C6A] bg-[#9BA8AB] text-white font-bold py-2 px-6 rounded-full transition-colors duration-300">
+          <motion.button whileHover={{ scale: 1.07 }} className="hover:bg-[#4A5C6A] bg-[#9BA8AB] text-white font-bold  py-2 px-6 rounded-full transition-colors duration-300">
             Decline
           </motion.button>
           {accepted ?

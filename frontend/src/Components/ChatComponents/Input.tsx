@@ -21,17 +21,23 @@ const Input = ({
   };
 
   return (
-    <div className="flex items-center border-2 border-white bg-[#2c313a] rounded-3xl shadow-md px-4 py-2 w-full sm:w-[500px] md:w-[800px] mx-auto">
-      <form className="flex items-center w-full" onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }}>
+    <div className="flex items-center border-2 border-white bg-[#2c313a] rounded-3xl shadow-md px-4 py-2 w-[270px] sm:w-[500px] md:w-[800px] mx-auto">
+      <form
+        className="flex items-center w-full gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSendMessage();
+        }}
+      >
         <input
           type="text"
           placeholder="Type a message..."
           value={messageContent}
           onChange={(e) => setMessageContent(e.target.value)}
-          className="flex-grow bg-transparent text-cyan-600 placeholder-gray-400 font-semibold outline-none mr-2"
+          className="flex-grow bg-transparent text-cyan-600 placeholder-gray-400 font-semibold outline-none"
         />
         <button
-          className="bg-black border-2 border-white hover:bg-gray-900 text-white p-2 rounded-full shadow-md transition-all duration-300 focus:outline-none"
+          className="flex items-center justify-center bg-black border-2 border-white hover:bg-gray-900 text-white p-2 rounded-full shadow-md transition-all duration-300 focus:outline-none"
           aria-label="Send"
           type="submit"
         >

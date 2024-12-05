@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/Components/ui/dialog"
 import toast from "react-hot-toast";
 import AllChatRoomsComponent from "../../Components/AllChatRoomsComponent"
 import { motion } from "framer-motion"
@@ -117,6 +117,7 @@ const AllChatRooms = () => {
             <DialogTitle>Create Group</DialogTitle>
           </DialogHeader>
           <div>
+          <p className="text-gray-100 mb-5 text-sm">Press the create button once and then wait for a success message.</p>
             <label className="text-gray-300 text-sm">GROUP NAME</label>
             <input value={groupName} onChange={(e) => setGroupName(e.target.value)} className="text-gray-400 w-full bg-black outline-none border-none" placeholder="Enter name of group..." />
           </div>

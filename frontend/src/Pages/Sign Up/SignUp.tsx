@@ -25,7 +25,8 @@ const SignUp = () => {
   }
 
   return (
-    <motion.div
+    <div className="bg-black w-screen h-screen">
+      <motion.div
       initial={{ opacity: 1, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -36,7 +37,7 @@ const SignUp = () => {
           Sign Up
           <span className="text-cyan-600"> OpportuneHub</span>
         </h1>
-        <p className="flex justify-center items-center text-sm">
+        <p className="flex justify-center items-center text-gray-400 text-sm">
           If Sign up fails try a different username
         </p>
         <form onSubmit={handleSubmit}>
@@ -134,6 +135,7 @@ const SignUp = () => {
         </form>
       </div>
     </motion.div>
+    </div>
   );
 };
 

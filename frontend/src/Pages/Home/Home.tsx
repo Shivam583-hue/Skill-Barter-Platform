@@ -14,7 +14,8 @@ const Home = () => {
   const [isChatroomsActive, setIsChatroomsActive] = useState(false);
 
   return (
-    <div className="flex flex-col justify-center items-center px-4">
+    <div className="w-full h-full">
+      <div className="flex flex-col justify-center items-center px-4">
       <motion.div
         layout
         transition={spring}
@@ -51,7 +52,7 @@ const Home = () => {
         </motion.button>
       </motion.div>
 
-      <div className="bg-[#011627] rounded-[50px] my-10 p-6 sm:p-10 w-full max-w-[700px]">
+      <div className="bg-black rounded-[50px] my-10 p-6 sm:p-10 w-full shadow-max max-w-[700px]">
         <h1 className="text-cyan-500 text-[28px] sm:text-[35px] font-semibold font-mono text-center">
           How to use the website
         </h1>
@@ -60,18 +61,13 @@ const Home = () => {
           collaboration.
         </h1>
         <h1 className="text-[#a598e8] pt-4 font-semibold font-mono text-[15px] sm:text-[17px]">
-          2. In the developer and designers section, you can post opportunities
-          to collaborate on a project with, you can pick the people you want to
-          collaborate with from the comments section. Once you have picked the
-          people, an automatic real-time group chat will be created (you can add
-          more people by requesting them to collaborate with you from their
-          profile) with a progress bar for you to track the progress of the
-          project.
+          2. You can create a new chatroom from the Chatrooms section, an id of the chatroom will be provided to you,
+          use this to create an opportunity from the post section, when people comment on your opportunity post, you can 
+          view their profiles and consider accepting them into your chatroom where you will collaborate together on a project.
         </h1>
         <h1 className="text-[#a598e8] pt-4 font-semibold font-mono text-[15px] sm:text-[17px]">
-          3. Once the project is completed, the group chat will automatically be
-          deleted within 1 day. You can also request people to join you on a
-          project directly from their profile.
+          3. You can also request people to join you on a
+          project directly from their profile, by sending them a proposal, you can view all your proposals in the inbox page.
         </h1>
         <h1 className="text-[#a598e8] pt-4 font-semibold font-mono text-[15px] sm:text-[17px]">
           4. In the dsa section, you can post anything related to DSA.
@@ -85,6 +81,7 @@ const Home = () => {
           section to impress potential employers, clients, or collaborators.
         </h1>
       </div>
+    </div>
     </div>
   );
 };
