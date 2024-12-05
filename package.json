@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "server": "tsc -b backend && node backend/dist/index.js",
+    "server": "cd backend && prisma generate && cd .. && tsc -b backend && node backend/dist/index.js",
     "build": "npm install && cd backend && prisma generate && cd ../frontend && npm install && npm run build && cd ../backend && npm install && tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/dist/index.js"
