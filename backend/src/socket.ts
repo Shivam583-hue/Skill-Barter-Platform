@@ -2,7 +2,7 @@ import { Server } from "socket.io";
 import { Server as HttpServer } from "http";
 import { prisma } from "./clientInstance.js";
 import { saveMessageToDatabase } from "./utils/saveMessageToDatabase.js";
-import  Joi from "joi";
+import Joi from "joi";
 
 type User = {
   id: number;
@@ -33,8 +33,6 @@ const setupSocketIO = (server: HttpServer) => {
   });
 
   io.on("connection", (socket) => {
-    console.log("A user connected:", socket.id);
-
     socket.on("sendMessage", async (data: SendMessageData) => {
       try {
         const { error, value } = messageSchema.validate(data);
@@ -43,9 +41,15 @@ const setupSocketIO = (server: HttpServer) => {
           return;
         }
 
-        const isAuthorized = await verifyUser(value.messageCreatorId, value.groupId);
+        const isAuthorized = await verifyUser(
+          value.messageCreatorId,
+          value.groupId,
+        );
         if (!isAuthorized) {
-          socket.emit("messageError", "Not authorized to send messages to this group");
+          socket.emit(
+            "messageError",
+            "Not authorized to send messages to this group",
+          );
           return;
         }
 
@@ -60,7 +64,6 @@ const setupSocketIO = (server: HttpServer) => {
           }
         }
 
-        
         io.to(value.groupId.toString()).emit("newMessage", message);
       } catch (error) {
         console.error("Error handling sendMessage event:", error);

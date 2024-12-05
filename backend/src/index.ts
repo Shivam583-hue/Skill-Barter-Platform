@@ -1,4 +1,5 @@
 import cors from "cors";
+import path from "path";
 import http from "http";
 import express from "express";
 import cookieParser from "cookie-parser";
@@ -13,10 +14,11 @@ import getPreviewCardsRoutes from "./routes/getPreviewCards.route.js";
 import groupRoutes from "./routes/group.route.js";
 
 import setupSocketIO from "./socket.js";
-import { Request, Response } from "express";
 
 const app = express();
 const server = http.createServer(app);
+
+const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -47,9 +49,10 @@ app.use("/api", authenticatedProfileComponentRoutes);
 app.use("/api/specificView", specificView);
 app.use("/api/comments", managingComments);
 app.use("/api/proposal", proposalRoutes);
+app.use(express.static(path.join(__dirname, "frontend/dist")));
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server is running");
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
 });
 
 setupSocketIO(server);
