@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 
-const ParticularChatRoom = ({
-  chatroom_id,
-  chatroom_name,
-}: {
-  chatroom_id: number;
-  chatroom_name: string;
-}) => {
+const ParticularChatRoom = ({ chatroom_name }: { chatroom_name: string }) => {
   return (
     <div className="flex flex-col">
       <header>
