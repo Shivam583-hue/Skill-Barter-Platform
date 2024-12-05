@@ -28,14 +28,6 @@
         "dest": "backend/dist/index.js"
       },
       {
-        "src": "/(assets|images)/.*",
-        "dest": "frontend/dist/$0"
-      },
-      {
-        "src": "/(.+\\.(?:ico|png|jpg|jpeg|css|js))",
-        "dest": "frontend/dist/$1"
-      },
-      {
         "src": "/(.*)",
         "dest": "frontend/dist/index.html"
       }
