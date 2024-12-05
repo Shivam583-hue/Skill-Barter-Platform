@@ -1,4 +1,5 @@
-import { Status } from "@prisma/client";
+import pkg from '@prisma/client';
+const { Status } = pkg;
 import { prisma } from "../clientInstance.js";
 import express from "express";
 

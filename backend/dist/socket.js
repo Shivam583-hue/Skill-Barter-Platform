@@ -25,7 +25,6 @@ const setupSocketIO = (server) => {
         },
     });
     io.on("connection", (socket) => {
-        console.log("A user connected:", socket.id);
         socket.on("sendMessage", (data) => __awaiter(void 0, void 0, void 0, function* () {
             try {
                 const { error, value } = messageSchema.validate(data);

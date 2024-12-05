@@ -7,7 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Status } from "@prisma/client";
+import pkg from '@prisma/client';
+const { Status } = pkg;
 import { prisma } from "../clientInstance.js";
 export const sendProposal = ((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { groupId, senderId, receiverId, content } = req.body;
