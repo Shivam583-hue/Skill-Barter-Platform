@@ -26,7 +26,7 @@ const messageSchema = Joi.object<SendMessageData>({
 const setupSocketIO = (server: HttpServer) => {
   const io = new Server(server, {
     cors: {
-      origin: "https://opportunehub.vercel.app",
+      origin: "https://opportunehub-lac.vercel.app",
       methods: ["GET", "POST"],
       credentials: true,
     },
