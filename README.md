@@ -3,8 +3,8 @@
 OpportuneHub is a multi-purpose website designed to foster collaboration and connectivity among users. Whether you're looking to work on a project, discuss data structures and algorithms, share your work portfolio, or find job opportunities, OpportuneHub has got you covered.
 
 ## 🚀 Live Deployment
-[OpportuneHub Backend](https://opportune-hub-backend.onrender.com/)  
-_Deployed on Render (free tier) – response times may vary._
+[OpportuneHub](https://opportune-hub-backend.onrender.com/)  
+_Deployed on Render free tier so response times may be slow ._
 
 ## Features
 
