@@ -6,6 +6,11 @@ OpportuneHub is a multi-purpose website designed to foster collaboration and con
 [OpportuneHub](https://opportune-hub-backend.onrender.com/)  
 _Deployed on Render free tier so response times may be slow ._
 
+### Test Credentials
+For users who just want to look around, use the following test credentials:
+- **Email**: yaadnhi@gmail.com
+- **Password**: 123456
+
 ## Features
 
 1. **Collaboration and Chatrooms**  
@@ -64,10 +69,11 @@ OpportuneHub is built using the following technologies:
 
 4. Start the development server:
    ```bash
-   npm run dev
+   cd backend
+   npm run server
    ```
 
-5. Access the application locally at `http://localhost:3000`.
+5. Access the application locally at `http://localhost:5000`.
 
 ## Contributions
 
