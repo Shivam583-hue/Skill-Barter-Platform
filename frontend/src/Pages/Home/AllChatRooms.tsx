@@ -47,7 +47,6 @@ const AllChatRooms = () => {
         );
         setGroups(response.data.data || []);
       } catch (error) {
-        toast.error("Server is down, please try again later");
         console.error("Failed to fetch joined groups", error);
       }
     };
