@@ -214,7 +214,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleInbox}
               whileTap={{ scale: 0.98 }}
-              className=" mt-1.5  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[6px] pr-3">
                 {inbox ? (
@@ -245,7 +245,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleDeveloper}
               whileTap={{ scale: 0.98 }}
-              className=" mt-1.5  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="   bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[9px] pr-3">
                 {developer ? (
@@ -276,7 +276,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleDesigner}
               whileTap={{ scale: 0.98 }}
-              className=" mt-1.5  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="   bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[7px] pr-3">
                 {designer ? (
@@ -307,7 +307,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleDSA}
               whileTap={{ scale: 0.98 }}
-              className=" mt-1.5  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="   bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[6px] pr-3">
                 {dsa ? (
@@ -338,7 +338,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleJobs}
               whileTap={{ scale: 0.98 }}
-              className=" mt-1.5  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="   bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[6px] pr-3">
                 {jobs ? (
@@ -369,7 +369,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleFlex}
               whileTap={{ scale: 0.98 }}
-              className=" mt-1.5  bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="   bg-transparent  text-white w-64 h-12 rounded-3xl font-sans flex pt-1  pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[6px] pr-3">
                 {flex ? (
@@ -400,7 +400,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={handleProfile}
               whileTap={{ scale: 0.98 }}
-              className="mt-1.5  bg-transparent text-white w-64 h-12 rounded-3xl font-sans flex pt-1 pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="  bg-transparent text-white w-64 h-12 rounded-3xl font-sans flex pt-1 pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[6px] pr-3">
                 {profile ? (
@@ -431,7 +431,7 @@ const SideBar = () => {
               whileHover={{ scale: 1.04 }}
               onClick={logout}
               whileTap={{ scale: 0.98 }}
-              className="mt-1.5  bg-transparent text-white w-64 h-12 rounded-3xl font-sans flex pt-1 pl-12 font-semibold text-[25px] hover:bg-[#343635] "
+              className="  bg-transparent text-white w-64 h-12 rounded-3xl font-sans flex pt-1 pl-12 font-semibold text-[25px] hover:bg-[#343635] "
             >
               <div className="pt-[6px] pr-3">
                 <svg
