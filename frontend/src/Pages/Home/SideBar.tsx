@@ -176,7 +176,7 @@ const SideBar = () => {
                 <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
               </svg>
             </motion.button>
-            <img src={logo} alt="logo" className="w-3/4 pt-5 mx-auto" />
+            
           </div>
           <div className="flex flex-col items-center">
             <motion.button
